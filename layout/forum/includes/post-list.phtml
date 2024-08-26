@@ -1,0 +1,46 @@
+<tr tabindex="1" class="topic-list" data-forum="<?php echo $tsx['thread']['id']; ?>">
+	<td style="width: 66%;">
+		<div class="threadcont-inner">
+	    	<div>
+	    		<a class="sun_ftitle" href="<?php echo $tsx['thread']['url'];?>" data-ajax="?link1=showthread&tid=<?php echo $tsx['thread']['id'];?>">
+		        	<?php 
+		        		
+		        		if(strlen($tsx['thread']['headline']) > 55){
+		        			echo tsx_GetShortTitle($tsx['thread']['headline'], false, 50);
+		        		}
+		      			else {
+		      				echo $tsx['thread']['headline'];
+		      			}
+		        	?>	
+	        	</a>
+	    	</div>
+	    	<div class="thread-info">
+		    	<span class="blog-meta-desc"><i><?php echo $tsx['lang']['by']; ?></i> <a href="<?php echo $tsx['thread']['author_url']; ?>" data-ajax="?link1=timeline&u=<?php echo $tsx['thread']['user_data']['username']; ?>"><?php echo $tsx['thread']['user_data']['name']; ?></a></span>
+		    	<span><?php echo tsx_Time_Elapsed_String($tsx['thread']['posted']); ?></span>
+	    	</div>
+	    </div>
+	</td>
+	<td style="width: 20%;" class="small blod">
+		<span>
+		<?php if ($tsx['thread']['last_post'] > 0): ?>
+			<?php echo tsx_Time_Elapsed_String($tsx['thread']['last_post']); ?>
+		<?php else: ?>	
+			<?php echo $tsx['lang']['never']; ?>
+		<?php endif; ?>	
+		</span>
+	</td>
+	<td class="text-center" style="width: 7%;">
+		<div>
+			<h6 class="small" style="display: inline-block;">
+				<span style="display:block;"><?php echo $tsx['thread']['replies']; ?></span>
+			</h6>	
+		</div>
+	</td>
+	<td class="text-center" style="width:7%;">
+		<div>
+			<h6 class="small" style="display: inline-block;">
+				<span style="display:block;"><?php echo $tsx['thread']['views']; ?></span> 
+			</h6>
+		</div>
+	</td>
+</tr>

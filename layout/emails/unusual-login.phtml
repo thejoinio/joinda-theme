@@ -1,0 +1,14 @@
+<?php 
+$data = $db->where('name','unusual_login')->getOne(T_HTML_EMAILS);
+$html = $data->value;
+$replaces = array('USERNAME' => $tsx['email']['username'],
+                  'SITE_NAME' => $tsx['config']['siteName'],
+                  'CODE' => $tsx['email']['code'],
+                  'DATE' => $tsx['email']['date'],
+                  'EMAIL' => $tsx['email']['email'],
+                  'COUNTRY_CODE' => $tsx['email']['countryCode'],
+                  'IP_ADDRESS' => $tsx['email']['ip_address'],
+                  'CITY' => $tsx['email']['city']);
+$html = tsx_ReplaceText($html,$replaces);
+echo $html;
+ ?>

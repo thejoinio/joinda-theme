@@ -1,0 +1,69 @@
+<div class="messages-wrapper <?php echo ($tsx['chatMessage']['onwer'] == 1) ? 'pull-right' : 'pull-left';?> messages-text" id="messageId_<?php echo $tsx['chatMessage']['id'] ?>" data-page-tmessage-id="<?php echo $tsx['chatMessage']['id'] ?>" data-message-id="<?php echo $tsx['chatMessage']['id'] ?>">
+	<?php if ($tsx['chatMessage']['onwer'] == 0) { ?>
+		<?php $page = tsx_PageData($tsx['chatMessage']['page_id']); if ($page['user_id'] == $tsx['chatMessage']['from_id']) { ?>
+            <a href="<?php echo $page['url'];?>" data-ajax="?link1=timeline&u=<?php echo $page['page_name'] ?>">
+               <img class="user-avatar<?php echo ($tsx['chatMessage']['onwer'] == 1) ? '-right' : '-left';?>" src="<?php echo $page['avatar'] ?>" alt="<?php echo $page['page_name'] ?> Profile Picture">
+            </a>
+		<?php  } else{ ?>
+			<a href="<?php echo tsx_SeoLink('index.php?link1=timeline&u='.$tsx['chatMessage']['user_data']['username']);?>" data-ajax="?link1=timeline&u=<?php echo $tsx['chatMessage']['user_data']['username'] ?>">
+				<img class="user-avatar<?php echo ($tsx['chatMessage']['onwer'] == 1) ? '-right' : '-left';?>" src="<?php echo $tsx['chatMessage']['user_data']['avatar'] ?>" alt="<?php echo $tsx['chatMessage']['user_data']['name'] ?> Profile Picture">
+			</a>
+		<?php  } ?>
+	<?php } ?>
+	<div class="message <?php echo ($tsx['chatMessage']['onwer'] == 1) ? 'outgoing pull-right' : 'incoming pull-left';?>">
+		<?php if (!empty($tsx['chatMessage']['text'])): ?>
+			<p class="message-text" dir="auto" style="background: <?php echo ($tsx['chatMessage']['onwer'] == 1 && isset($tsx['chat']['color'])) ? $tsx['chat']['color'] . ' !important;' : '';?>;<?php echo ($tsx['chatMessage']['onwer'] == 1) ? ' color:#fff !important;' : '';?>">
+				<?php if($tsx['chatMessage']['type_ttsx'] == 'contact'): 
+					$json = json_decode(trim(htmlspecialchars_decode($tsx['chatMessage']['text'])), true);
+					echo $json['Value'] . ' (' . $json['Key'] . ')';
+				?>
+				<?php else: echo $tsx['chatMessage']['text']; endif;?>
+			</p>
+		<?php endif ?>
+		<div class="clear"></div>
+		<div class="message-media">
+			<?php  
+				if(isset($tsx['chatMessage']['media']) && !empty($tsx['chatMessage']['media'])) {
+					$media = array('type' => 'chatMessage', 'storyId' => $tsx['chatMessage']['id'], 'filename' => $tsx['chatMessage']['media'], 'name' => $tsx['chatMessage']['mediaFileName']); 
+					echo tsx_DisplaySharedFile($media, 'chat');   
+				} 
+			?>
+            <?php if (!empty($tsx['chatMessage']['stickers'])): ?>
+				<?php if (strpos('.mp4', $tsx['chatMessage']['stickers'])) { ?>
+					<video autoplay loop><source src="<?php echo $tsx['chatMessage']['stickers']; ?>" type="video/mp4"></video>
+				<?php } else { ?>
+					<img src="<?php echo $tsx['chatMessage']['stickers']; ?>" alt="GIF">
+				<?php } ?>
+			<?php endif; ?>
+		</div>
+		<div class="like-stat stat-item post-like-status" style="<?php if ($tsx['chatMessage']['onwer'] == 0) {?> float:right;margin: -8px -12px 2px 0; <?php }else{ ?> float:left;margin: -8px -12px 2px 0; <?php }?>">
+		  <span class="like-emo post-reactions-icons-m-<?php echo $tsx['chatMessage']['id']; ?>">
+		  <?php echo tsx_GetPostReactions($tsx['chatMessage']['id'],'message');?>
+		  </span>
+		</div>
+	</div>
+	
+	<ul class="reactions-box reactions-box-container-<?php echo $tsx['chatMessage']['id']; ?>" data-id="<?php echo $tsx['chatMessage']['id']; ?>">
+			<?php if (!empty($tsx['reactions_types'])) {
+			    foreach ($tsx['reactions_types'] as $key => $value) {
+			    	if ($value['status'] == 1) {
+			    		
+			     ?>
+				<li style="<?php if ($tsx['chatMessage']['onwer'] == 0) {?> left: 10px; <?php }else{ ?> right: 10px; <?php }?>" class="reaction reaction-<?php echo $value['id'];?>" data-reaction="<?php echo $value['name'];?>" data-reaction-id="<?php echo $value['id'];?>" data-reaction-lang="<?php echo $value['name'];?>" data-post-id="<?php echo $tsx['chatMessage']['id']; ?>" onclick="tsx_RegisterMessageReaction(this,'<?php echo($value['joinda_small_icon']) ?>',<?php echo($value['is_html']) ?>);">
+					<?php if (preg_match("/<[^<]+>/",$value['joinda_icon'],$m)) {
+						  	echo($value['joinda_icon']);
+						 }
+						 else{ ?>
+				     	<img src="<?php echo($value['joinda_icon']) ?>">
+				    <?php } ?>
+				</li>
+			<?php } } } ?>
+		</ul>
+	<div class="clear"></div>
+	<?php if($tsx['chatMessage']['user_data']['user_id'] == $tsx['user']['user_id']) { ?>
+		<div class="message-seen text-right message-details"></div>
+		<div class="clear"></div>
+	<?php } ?>
+	<div class="message-typing message-details"></div>
+</div>
+<div class="clear"></div>

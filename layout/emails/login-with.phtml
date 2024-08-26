@@ -1,0 +1,10 @@
+<?php 
+$data = $db->where('name','login_with')->getOne(T_HTML_EMAILS);
+$html = $data->value;
+$replaces = array('FIRST_NAME' => $tsx['user']['first_name'],
+                  'SITE_NAME' => $tsx['config']['siteName'],
+                  'USERNAME' => $tsx['user']['username'],
+                  'EMAIL' => $tsx['user']['email']);
+$html = tsx_ReplaceText($html,$replaces);
+echo $html;
+ ?>

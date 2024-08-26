@@ -1,0 +1,28 @@
+<div class="sidebar-event-data" data-suggested-event="<?php echo $tsx['event']['id']?>">
+	<a href="<?php echo $tsx['event']['url']?>">
+		 <div class="sidebar-event-thumbnail pull-left">
+            <img src="<?php echo tsx_GetMedia($tsx['event']['cover'])?>"   height="70" alt="<?php echo $tsx['event']['name']?> Cover Image">
+        </div>
+    </a>
+    <div class="sidebar-event-name pull-right">
+    	<p>
+	    	<a href="<?php echo $tsx['event']['url']?>" class="main bold">
+	    		<?php echo tsx_GetShortTitle($tsx['event']['name'],false,20);?>
+	    	</a>
+    	</p>
+    	<span class="small">
+    		<i class="fa fa-clock-o" aria-hidden="true"></i>
+    		<?php echo $tsx['event']['start_date'];?>
+    	</span>
+    	<div class="suggest-event-action-<?php echo $tsx['event']['id']?>">
+	    	<span class="pointer  interested-in-event" data-event-ident="<?php echo $tsx['event']['id']?>">
+	    		<strong class="link2"><?php echo $tsx['lang']['interested']; ?></strong>
+	    	</span>
+	    	<span class="pointer  going-to-event" data-event-ident="<?php echo $tsx['event']['id']?>">
+	    		<strong class="link2"><?php echo $tsx['lang']['going']; ?></strong>
+	    	</span>
+    	</div>
+    </div>
+
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,38 @@
+<li>
+	<a href="<?php echo $tsx['result']['url'] . $tsx['marker'];?>ref=se" data-ajax="?link1=timeline&u=<?php echo $tsx['result']['username']?>&ref=se">
+		<span class="user-popover" data-id="<?php echo $tsx['result']['id'];?>" data-type="<?php echo $tsx['result']['type'];?>">
+			<div class="search-user-avatar <?php echo tsx_RightToLeft('pull-left');?>">
+				<img src="<?php echo $tsx['result']['avatar']?>" alt="<?php echo $tsx['result']['name']?> Profile Picture">
+			</div>
+			<span class="search-user-name">
+				<?php echo $tsx['result']['name']?>
+				<?php if(empty($tsx['result']['group_id'])) {?>   
+					<?php if($tsx['result']['verified'] == 1) {?>   
+						<span class="verified-color"><i class="fa fa-check-circle" title="<?php echo $tsx['lang']['verified_user'];?>"></i></span>
+					<?php } ?>
+				<?php } ?>
+			</span>
+			<?php if (!empty($tsx['result']['page_id'])) { ?>
+				<span class="search_result_badge"><?php echo $tsx['lang']['page'];?></span>
+			<?php } else if (!empty($tsx['result']['group_id'])) { ?>
+				<span class="search_result_badge"><?php echo $tsx['lang']['group'];?></span>
+			<?php } ?>
+		</span>
+		<?php if (!empty($tsx['result']['page_id'])) { ?>
+		<div class="user-lastseen">
+			<?php echo $tsx['result']['category']; ?>
+		</div>
+		<?php } else if (!empty($tsx['result']['group_id'])) { ?>
+		<div class="user-lastseen">
+			<?php echo tsx_CountGroupMembers($tsx['result']['group_id']); ?> <?php echo $tsx['lang']['members'];?>
+		</div>
+		<?php } else { ?>
+		<?php if($tsx['config']['user_lastseen'] == 1 && $tsx['result']['showlastseen'] != 0) { ?>
+		<div class="user-lastseen">
+			<?php echo tsx_UserStatus($tsx['result']['user_id'],$tsx['result']['lastseen']); ?>
+		</div>
+		<?php } ?>
+		<?php } ?>
+	</a>
+	<div class="clear"></div>
+</li>

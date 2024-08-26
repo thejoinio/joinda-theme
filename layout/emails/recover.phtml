@@ -1,0 +1,9 @@
+<?php 
+$data = $db->where('name','recover')->getOne(T_HTML_EMAILS);
+$html = $data->value;
+$replaces = array('USERNAME' => $tsx['recover']['username'],
+                  'SITE_NAME' => $tsx['config']['siteName'],
+                  'LINK' => $tsx['recover']['link']);
+$html = tsx_ReplaceText($html,$replaces);
+echo $html;
+ ?>

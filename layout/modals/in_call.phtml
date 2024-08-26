@@ -1,0 +1,22 @@
+<div class="modal fade" id="re-calling-modal" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog joinda_mat_mdl modal-md">
+		<div class="modal-content text-center tsx_calling_modals video">
+			<img src="<?php echo $tsx['incall']['in_call_user']['avatar'];?>" alt="" class="hidden-mobile-image">
+			<div class="modal-header">
+				<div class="avatar">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z" /></svg>
+					<img src="<?php echo $tsx['incall']['in_call_user']['avatar'];?>" alt="">
+				</div>
+				<h4 class="modal-title"><?php echo $tsx['lang']['new_video_call'];?></h4>
+			</div>
+			<div class="modal-body">
+				<p><b><?php echo $tsx['incall']['in_call_user']['name'];?></b><br><?php echo $tsx['lang']['new_video_call_desc'];?></p>
+				<div class="clear"></div>
+			</div>
+			<div class="modal-footer">
+				<button data-href="<?php echo $tsx['incall']['url'];?>" type="button" class="btn answer-call btn-main btn-mat" onclick="tsx_AnswerCall('<?php echo $tsx['incall']['id'];?>', '<?php echo $tsx['incall']['url'];?>');"><i class="fa fa-video-camera progress-icon" data-icon="video-camera"></i> <?php echo $tsx['lang']['accept_and_start'];?></button>
+				<button type="button" class="btn decline-call btn-default btn-mat" onclick="tsx_DeclineCall('<?php echo $tsx['incall']['id'];?>');"><i class="fa fa-times progress-icon" data-icon="times"></i> <?php echo $tsx['lang']['decline'];?></button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<div class="live_comments" live_comment_id="<?php echo $tsx['comment']['id']; ?>"> 
+  <a onclick="InjectAPI('{&quot;profile_id&quot; : &quot;1&quot;, &quot;type&quot;:&quot;user&quot;}', event);" class="pull-left" href="<?php echo($tsx['comment']['publisher']['url']) ?>"> 
+    <img class="live_avatar pull-left" src="<?php echo($tsx['comment']['publisher']['avatar']) ?>" alt="avatar"> 
+  </a> 
+
+  <div class="comment-body" style="/*float: left;*/"> 
+    <div class="comment-heading"> 
+      <span> 
+        <a href="<?php echo($tsx['comment']['publisher']['url']) ?>" data-ajax="?link1=timeline&amp;u=<?php echo($tsx['comment']['publisher']['username']) ?>" onclick="InjectAPI('{&quot;profile_id&quot; : &quot;1&quot;, &quot;type&quot;:&quot;user&quot;}', event);"> 
+          <h4 class="live_user_h"> <?php echo($tsx['comment']['publisher']['name']) ?> </h4> 
+        </a> 
+      </span> 
+      <?php  if($tsx['comment']['publisher']['verified'] == 1) {   ?>
+      <span class="verified-color" data-toggle="tooltip" title="Verified User"><i class="fa fa-check-circle"></i>
+      </span> 
+      <?php } ?>
+      <div class="comment-text"><?php echo $tsx['comment']['text']; ?></div> 
+    </div> 
+  </div>
+  <div class="clear"></div>
+</div>

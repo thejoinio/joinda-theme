@@ -1,0 +1,14 @@
+<div class="profile-style" id="member-<?php echo $tsx['member']['user_id'] ?>">
+   <a href="<?php echo $tsx['member']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $tsx['member']['username'] ?>">
+      <div class="avatar <?php echo tsx_RightToLeft('pull-left');?>">
+         <img src="<?php echo $tsx['member']['avatar'];?>" alt="<?php echo $tsx['member']['name']; ?> Profile Picture" />
+      </div>
+      <?php echo $tsx['member']['name']; ?>
+   </a>
+   <div class="page-website">
+      <?php echo tsx_UserStatus($tsx['member']['user_id'],$tsx['member']['lastseen']); ?>
+   </div>
+   <div>
+   <a class="btn btn-default btn-sm" href="<?php echo $tsx['member']['url'] . $tsx['marker'] . 'block_user=un-block';?>"><i class="fa fa-remove"></i> <?php echo $tsx['lang']['un_block'];?></a>
+   </div>
+</div>

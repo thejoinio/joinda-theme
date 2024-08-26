@@ -1,0 +1,14 @@
+<div class="col-xs-6 col-sm-4 nearby_user_wrapper text-center user-data" data-page-id="<?php echo $tsx['GroupList']['id'];?>">
+  <a href="<?php echo $tsx['GroupList']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $tsx['GroupList']['username']?>">
+    <div class="avatar">
+      <img src="<?php echo $tsx['GroupList']['avatar'];?>" alt="<?php echo $tsx['GroupList']['name']; ?> Profile Picture" />
+    </div>
+    <span class="user_wrapper_link"><?php echo $tsx['GroupList']['name']; ?></span>
+  </a>
+  <div class="user-lastseen">
+    <?php echo $tsx['lang']['members'];?>: <?php echo tsx_CountGroupMembers($tsx['GroupList']['id']); ?>
+  </div>
+  <div class="user-follow-button">
+    <?php echo tsx_GetJoinButton($tsx['GroupList']['id']);?>
+  </div>
+</div>

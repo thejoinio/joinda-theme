@@ -1,0 +1,472 @@
+<?php
+$unread_class = '';
+if ($tsx['notification']['seen'] == 0) {
+    $unread_class = ' unread';
+}
+$tsx['notification']['type_text'] = '';
+$tsx['notification']['icon']      = '';
+$notificationText                = $tsx['notification']['text'];
+if (isset($notificationText) && !empty($notificationText)) {
+    $notificationText = '"' . $tsx['notification']['text'] . '"';
+}
+$notificationType2 = $tsx['notification']['type2'];
+if (isset($notificationType2) && !empty($notificationType2)) {
+    if ($notificationType2 == 'post_image') {
+        $type2 = $tsx['lang']['photo_n_label'];
+    } elseif ($notificationType2 == 'post_youtube' || $notificationType2 == 'post_video') {
+        $type2 = $tsx['lang']['video_n_label'];
+    } elseif ($notificationType2 == 'post_file') {
+        $type2 = $tsx['lang']['file_n_label'];
+    } elseif ($notificationType2 == 'post_vine') {
+        $type2 = $tsx['lang']['vine_n_label'];
+    } elseif ($notificationType2 == 'post_soundFile') {
+        $type2 = $tsx['lang']['sound_n_label'];
+    } elseif ($notificationType2 == 'post_avatar') {
+        $type2 = $tsx['lang']['avatar_n_label'];
+    } elseif ($notificationType2 == 'post_cover') {
+        $type2 = $tsx['lang']['cover_n_label'];
+    } else {
+        $type2 = '';
+    }
+} else {
+    $type2 = $tsx['lang']['post_n_label'];
+    
+}
+$orginal_txt  = array(
+    "{postType}",
+    "{post}"
+);
+$replaced_txt = array(
+    $type2,
+    $notificationText
+);
+if (!empty($tsx['notification']['type'])) {
+    if ($tsx['notification']['type'] == "reaction") {
+        
+        if( $tsx['notification']['text'] == "post" ){
+            $tsx['notification']['type_text'] .= $tsx['lang']['reacted_to_your_post'];
+        }else if( $tsx['notification']['text'] == "comment" ){
+            $tsx['notification']['type_text'] .= $tsx['lang']['reacted_to_your_comment'];
+        }else if( $tsx['notification']['text'] == "replay" ){
+            $tsx['notification']['type_text'] .= $tsx['lang']['reacted_to_your_replay'];
+        }
+        elseif ($tsx['notification']['text'] == "story") {
+            $tsx['notification']['type_text'] .= $tsx['lang']['reacted_to_your_story'];
+            $tsx['notification']['type'] = "story_reaction";
+            $tsx['notification']['url']       = $tsx['notification']['url']; 
+        }
+        elseif ($tsx['notification']['text'] == "message") {
+            $tsx['notification']['type_text'] .= $tsx['lang']['reacted_to_your_message'];
+            $tsx['notification']['type'] = "message_reaction";
+            $tsx['notification']['url']       = $tsx['notification']['url']; 
+        }
+        if (!empty($tsx['reactions_types'][$notificationType2])) {
+            
+            if ($tsx['reactions_types'][$notificationType2]['is_html'] == 1) {
+
+                switch (strtolower($notificationType2)) {
+                   case 1:
+                       $tsx['notification']['icon'] .= "<div class='inline_post_emoji inline_act_emoji no_anim'><div class='emoji emoji--like'><div class='emoji__hand'><div class='emoji__thumb'></div></div></div></div></span>";
+                       break;
+                   case 2:
+                       $tsx['notification']['icon'] .= "<div class='inline_post_emoji inline_act_emoji no_anim'><div class='emoji emoji--love'><div class='emoji__heart'></div></div></div></span>";
+                       break;
+                   case 3:
+                      $tsx['notification']['icon'] .= "<div class='inline_post_emoji inline_act_emoji no_anim'><div class='emoji emoji--haha'><div class='emoji__face'><div class='emoji__eyes'></div><div class='emoji__mouth'><div class='emoji__tongue'></div></div></div></div></div></span>";
+                       break;
+                   case 4:
+                       $tsx['notification']['icon'] .= "<div class='inline_post_emoji inline_act_emoji no_anim'><div class='emoji emoji--joinda'><div class='emoji__face'><div class='emoji__eyebrows'></div><div class='emoji__eyes'></div><div class='emoji__mouth'></div></div></div></div></span>";
+                       break;
+                   case 5:
+                       $tsx['notification']['icon'] .= "<div class='inline_post_emoji inline_act_emoji no_anim'><div class='emoji emoji--sad'><div class='emoji__face'><div class='emoji__eyebrows'></div><div class='emoji__eyes'></div><div class='emoji__mouth'></div></div></div></div></span>";
+                       break;
+                   case 6:
+                       $tsx['notification']['icon'] .= "<div class='inline_post_emoji inline_act_emoji no_anim'><div class='emoji emoji--angry'><div class='emoji__face'><div class='emoji__eyebrows'></div><div class='emoji__eyes'></div><div class='emoji__mouth'></div></div></div></div></span>";
+                       break;
+               }
+            }
+            else{
+                if (!empty($tsx['reactions_types'][$notificationType2]['joinda_small_icon'])) {
+                    $tsx['notification']['icon'] .= "<div class='inline_post_emoji inline_act_emoji no_anim'><img style='width: 100%;' src='{$tsx['reactions_types'][$notificationType2]['joinda_small_icon']}' alt=\"" . $tsx['reactions_types'][$notificationType2]['name'] . "\"></div></span>";
+                }
+            }
+        }
+
+   //      switch (strtolower($notificationType2)) {
+
+			// case 'like':
+			// 	$tsx['notification']['icon'] .= '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--like"><div class="emoji__hand"><div class="emoji__thumb"></div></div></div></div>';
+			// 	break;
+			// case 'love':
+			// 	$tsx['notification']['icon'] .= '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--love"><div class="emoji__heart"></div></div></div>';
+			// 	break;
+			// case 'haha':
+			// 	$tsx['notification']['icon'] .= '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--haha"><div class="emoji__face"><div class="emoji__eyes"></div><div class="emoji__mouth"><div class="emoji__tongue"></div></div></div></div></div>';
+			// 	break;
+			// case 'joinda':
+			// 	$tsx['notification']['icon'] .= '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--joinda"><div class="emoji__face"><div class="emoji__eyebrows"></div><div class="emoji__eyes"></div><div class="emoji__mouth"></div></div></div></div>';
+			// 	break;
+			// case 'sad':
+			// 	$tsx['notification']['icon'] .= '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--sad"><div class="emoji__face"><div class="emoji__eyebrows"></div><div class="emoji__eyes"></div><div class="emoji__mouth"></div></div></div></div>';
+			// 	break;
+			// case 'angry':
+			// 	$tsx['notification']['icon'] .= '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--angry"><div class="emoji__face"><div class="emoji__eyebrows"></div><div class="emoji__eyes"></div><div class="emoji__mouth"></div></div></div></div>';
+			// 	break;
+			// }
+    }
+    if ($tsx['notification']['type'] == "gift") {
+        $tsx['notification']['type_text'] .= $tsx['lang']['send_gift_to_you'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-gift"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == "poke") {
+        $tsx['notification']['type_text'] .= $tsx['lang']['poked_you'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" class="feather feather-slash" width="24" height="24" viewBox="0 0 24 24">   <path fill="currentColor" d="M21,9A1,1 0 0,1 22,10A1,1 0 0,1 21,11H16.53L16.4,12.21L14.2,17.15C14,17.65 13.47,18 12.86,18H8.5C7.7,18 7,17.27 7,16.5V10C7,9.61 7.16,9.26 7.43,9L11.63,4.1L12.4,4.84C12.6,5.03 12.72,5.29 12.72,5.58L12.69,5.8L11,9H21M2,18V10H5V18H2Z" /></svg>';
+    }
+    if ($tsx['notification']['type'] == "following") {
+        $tsx['notification']['type_text'] .= $tsx['lang']['followed_you'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == "live_video") {
+        $tsx['notification']['type_text'] .= $tsx['lang']['started_live_video'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'comment_mention') {
+        $tsx['notification']['type_text'] .= TextForMode('comment_mention');
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-at-sign active"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'post_mention') {
+        $tsx['notification']['type_text'] .= TextForMode('post_mention');
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-at-sign active"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'liked_post') {
+        $tsx['notification']['type_text'] = str_replace($orginal_txt, $replaced_txt, TextForMode('liked_post'));
+        if ($tsx['config']['website_mode'] == 'askfm') {
+            $tsx['notification']['icon'] .= '<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"/></svg>';
+        }
+        else{
+            $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up active"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>';
+        }
+    }
+    if ($tsx['notification']['type'] == 'tsxndered_post') {
+        $lang_type = ($tsx['config']['second_post_button'] == 'tsxnder') ? $tsx['lang']['tsxndered_post'] : $tsx['lang']['disliked_post'];
+        $tsx['notification']['type_text'] = str_replace($orginal_txt, $replaced_txt, $lang_type);
+        $tsx['notification']['icon'] .= $tsx['second_post_button_icon'];
+    }
+    if ($tsx['notification']['type'] == 'share_post') {
+        $tsx['notification']['type_text'] = str_replace($orginal_txt, $replaced_txt, $tsx['lang']['share_post']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2 active"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'comment') {
+        $tsx['notification']['type_text'] = str_replace($orginal_txt, $replaced_txt, TextForMode('commented_on_post'));
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle active"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'comment_reply') {
+        $tsx['notification']['type_text'] = str_replace('{comment}', $tsx['notification']['text'], TextForMode('replied_to_comment'));
+        if (empty($tsx['notification']['text'])) {
+            $tsx['notification']['type_text'] = str_replace('"', '', $tsx['notification']['type_text']);
+        }
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle active"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'comment_reply_mention') {
+        $tsx['notification']['type_text'] = str_replace('{comment}', $tsx['notification']['text'], $tsx['lang']['comment_reply_mention']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle active"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'also_replied') {
+        $tsx['notification']['type_text'] = str_replace('{comment}', $tsx['notification']['text'], $tsx['lang']['also_replied']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle active"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'liked_comment') {
+        $tsx['notification']['type_text'] = str_replace('{comment}', $tsx['notification']['text'], $tsx['lang']['liked_comment']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up active"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'tsxndered_comment') {
+        $lang_type = ($tsx['config']['second_post_button'] == 'tsxnder') ? $tsx['lang']['tsxndered_comment'] : $tsx['lang']['disliked_comment'];
+        $tsx['notification']['type_text'] = str_replace('{comment}', $tsx['notification']['text'], $lang_type);
+        $tsx['notification']['icon'] .= $tsx['second_post_button_icon'];
+    }
+    if ($tsx['notification']['type'] == 'liked_reply_comment') {
+        $tsx['notification']['type_text'] = str_replace('{comment}', $tsx['notification']['text'], $tsx['lang']['liked_reply_comment']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up active"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'tsxndered_reply_comment') {
+        $lang_type = ($tsx['config']['second_post_button'] == 'tsxnder') ? $tsx['lang']['tsxndered_reply_comment'] : $tsx['lang']['disliked_reply_comment'];
+        $tsx['notification']['type_text'] = str_replace('{comment}', $tsx['notification']['text'], $lang_type);
+        $tsx['notification']['icon'] .= $tsx['second_post_button_icon'];
+    }
+    if ($tsx['notification']['type'] == 'profile_wall_post') {
+        $tsx['notification']['type_text'] = TextForMode('posted_on_timeline');
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    }
+    if ($tsx['notification']['type'] == 'visited_profile') {
+        $tsx['notification']['type_text'] = $tsx['lang']['profile_visted'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye active"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+    }
+    if ($tsx['notification']['type'] == 'liked_page') {
+        $page = tsx_PageData($tsx['notification']['page_id']);
+        $tsx['notification']['type_text'] = str_replace('{page_name}', $page['name'], $tsx['lang']['liked_page']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up active"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'joined_group') {
+        $group = tsx_GroupData($tsx['notification']['group_id']);
+        $tsx['notification']['type_text'] = str_replace('{group_name}', $group['name'], $tsx['lang']['joined_group']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users active"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>';
+    }
+    
+    if ($tsx['notification']['type'] == 'declined_group_chat_request') {
+        $tsx['notification']['type_text'] = $tsx['lang']['declined_group_chat_request'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users active"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'accept_group_chat_request') {
+        $tsx['notification']['type_text'] = $tsx['lang']['accept_group_chat_request'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users active"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'accepted_invite') {
+        $page_id = @end(explode('/', $tsx['notification']['url']));
+        $page = tsx_PageData(tsx_PageIdFromPagename($page_id));
+        $tsx['notification']['type_text'] = str_replace('{page_name}', $page['name'], $tsx['lang']['accepted_invited_page']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    
+    if ($tsx['notification']['type'] == 'invited_page') {
+        $page_id = @end(explode('/', $tsx['notification']['url']));
+        $page = tsx_PageData(tsx_PageIdFromPagename($page_id));
+        $tsx['notification']['type_text'] = str_replace('{page_name}', $page['name'], $tsx['lang']['invited_page']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'accepted_join_request') {
+        $group_id = @end(explode('/', $tsx['notification']['url']));
+        $group = tsx_GroupData(tsx_GroupIdFromGroupname($group_id));
+        $tsx['notification']['type_text'] = str_replace('{group_name}', $group['name'], $tsx['lang']['accepted_join_request']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'added_you_to_group') {
+        $group_id = @end(explode('/', $tsx['notification']['url']));
+        $group = tsx_GroupData(tsx_GroupIdFromGroupname($group_id));
+        $tsx['notification']['type_text'] = str_replace('{group_name}', $group['name'], $tsx['lang']['added_you_to_group']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+     if ($tsx['notification']['type'] == 'requested_to_join_group') {
+        $tsx['notification']['type_text'] = $tsx['lang']['requested_to_join_group'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+
+    if ($tsx['notification']['type'] == 'interested_event') {
+        $event_data = tsx_EventData($tsx['notification']['event_id']);
+        $tsx['notification']['type_text'] = str_replace('{event_name}', $event_data['name'], $tsx['lang']['is_interested']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye active"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+    }
+    if ($tsx['notification']['type'] == 'going_event') {
+        $event_data = tsx_EventData($tsx['notification']['event_id']);
+        $tsx['notification']['type_text'] = str_replace('{event_name}', $event_data['name'], $tsx['lang']['is_going']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar active"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'invited_event') {
+        $event_data = tsx_EventData($tsx['notification']['event_id']);
+        $tsx['notification']['type_text'] = str_replace('{event_name}', $event_data['name'], $tsx['lang']['invited_you_event']);
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar active"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'forum_reply') {
+        $tsx['notification']['type_text'] = $tsx['lang']['replied_to_topic'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-repeat active"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'apply_job') {
+        $tsx['notification']['type_text'] = $tsx['lang']['apply_your_job'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'fund_donate') {
+        $tsx['notification']['type_text'] = $tsx['lang']['donated_to'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'accepted_request') {
+        if ($tsx['config']['connectivitySystem'] == 1) {
+            $tsx['notification']['type_text'] = $tsx['lang']['accepted_friend_request'];
+        } else {
+            $tsx['notification']['type_text'] = $tsx['lang']['accepted_follow_request'];
+        }
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'new_orders') {
+        $tsx['notification']['type_text'] = $tsx['lang']['new_orders_has_been_placed'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'added_tracking') {
+        $tsx['notification']['type_text'] = $tsx['lang']['added_tracking_info'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>';
+    }
+    if ($tsx['notification']['type'] == 'status_changed') {
+        $tsx['notification']['type_text'] = $tsx['lang']['admin_status_changed'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>';
+    }
+    if ($tsx['notification']['type'] == 'new_review') {
+        $tsx['notification']['type_text'] = $tsx['lang']['added_review_to_your_product'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
+    }
+
+    if ($tsx['notification']['type'] == 'admin_notification') {
+        $theme                                    = $tsx['config']['theme'];
+        $tsx['notification']['type_text']          = $tsx['notification']['text'];
+        if ($tsx['notification']['type2'] != 'no_name'  && $tsx['notification']['type2'] != 'approve_post'   && $tsx['notification']['type2'] != 'approve_blog'  && $tsx['notification']['type2'] != 'ffmpeg'  && $tsx['notification']['type2'] != 'admin_status_changed' && $tsx['notification']['type2'] != 'approve_product') {
+            $tsx['notification']['url']                = $tsx['notification']['full_link']; 
+            $tsx['notification']['ajax_url']           = $tsx['notification']['full_link']; 
+            $tsx['notification']['tsx_url']             = false; 
+        }
+        
+        $tsx['notification']['notifier']['name']   = $tsx['config']['siteName']; 
+        $tsx['notification']['notifier']['avatar'] = $tsx['config']['theme_url'] . "/img/icon.png"; 
+        $tsx['notification']['icon']              .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye active"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+
+        if ($tsx['notification']['type2'] == 'admin_status_changed') {
+            $tsx['notification']['type_text'] = $tsx['lang']['admin_status_changed'];
+        }
+        if ($tsx['notification']['type2'] == 'approve_post') {
+            $tsx['notification']['type_text'] = $tsx['lang']['approve_post'];
+            $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+        }
+        if ($tsx['notification']['type2'] == 'approve_blog') {
+            $tsx['notification']['type_text'] = $tsx['lang']['approve_blog'];
+            $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+        }
+        if ($tsx['notification']['type2'] == 'refund_decline') {
+            $tsx['notification']['type_text'] = $tsx['lang']['refund_decline'];
+        }
+        if ($tsx['notification']['type2'] == 'withdraw_approve') {
+            $tsx['notification']['type_text'] = $tsx['lang']['withdraw_approve'];
+            $tsx['notification']['url']       = tsx_SeoLink('index.php?link1=setting&page=payments');
+        }
+        if ($tsx['notification']['type2'] == 'withdraw_declined') {
+            $tsx['notification']['type_text'] = $tsx['lang']['withdraw_declined'];
+            $tsx['notification']['url']       = tsx_SeoLink('index.php?link1=setting&page=payments');
+        }
+        if ($tsx['notification']['type2'] == 'coinpayments_canceled') {
+            $tsx['notification']['type_text'] = $tsx['lang']['coinpayments_canceled'];
+            $tsx['notification']['url']       = tsx_SeoLink('index.php?link1=wallet');
+        }
+        if ($tsx['notification']['type2'] == 'coinpayments_approved') {
+            $tsx['notification']['type_text'] = $tsx['lang']['coinpayments_approved'];
+            $tsx['notification']['url']       = tsx_SeoLink('index.php?link1=wallet');
+        }
+
+    }
+    if ($tsx['notification']['type'] == 'page_admin') {
+        $tsx['notification']['type_text'] = $tsx['lang']['added_page_admin'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon']     .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'group_admin') {
+        $tsx['notification']['type_text'] = $tsx['lang']['added_group_admin'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon']     .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'added_u_as') {
+        $tsx['notification']['type_text'] = $tsx['notification']['text'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon']     .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'accept_u_as') {
+        $tsx['notification']['type_text'] = $tsx['notification']['text'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon']     .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus active"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'rejected_u_as') {
+        $tsx['notification']['type_text'] = $tsx['notification']['text'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon']     .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x active"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+    }
+    if ($tsx['notification']['type'] == 'sent_u_money') {
+        $tsx['notification']['type_text'] = $tsx['notification']['text'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon']     .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign money"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'viewed_story') {
+        $tsx['notification']['type_text'] = $tsx['lang']['viewed_your_story'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon']     .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'blog_commented') {
+        $tsx['notification']['type_text'] = $tsx['lang']['commented_on_blog'];
+        $tsx['notification']['url']       = $tsx['notification']['url']; 
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle active"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>';;
+    }
+    if ($tsx['notification']['type'] == 'new_post') {
+        $tsx['notification']['type_text'] = $tsx['lang']['created_new_post'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    }
+    // Share post
+    if ($tsx['notification']['type'] == 'shared_your_post') {
+        $tsx['notification']['type_text'] = $tsx['lang']['shared_your_post'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    }
+    if ($tsx['notification']['type'] == 'shared_a_post_in_timeline') {
+        $tsx['notification']['type_text'] = $tsx['lang']['shared_a_post_in_timeline'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    }
+    // Share post
+    if ($tsx['notification']['type'] == 'bank_pro' || $tsx['notification']['type'] == 'bank_wallet') {
+        $tsx['notification']['type_text'] = $tsx['lang']['bank_pro'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    } 
+    if ($tsx['notification']['type'] == 'bank_decline') {
+        $tsx['notification']['type_text'] = $tsx['lang']['bank_decline'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    }
+    if ($tsx['notification']['type'] == 'memory') {
+        $tsx['notification']['type_text'] = $tsx['lang']['memory_this_day'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>';
+        $tsx['notification']['notifier']['name']   = $tsx['config']['siteName']; 
+        $tsx['notification']['notifier']['avatar'] = $tsx['config']['theme_url'] . "/img/icon.png"; 
+    }
+    if ($tsx['notification']['type'] == 'thread_reply') {
+        $tsx['notification']['type_text'] = $tsx['lang']['thread_reply'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle active"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>';
+    }
+    if ($tsx['notification']['type'] == 'remaining') {
+        $tsx['notification']['type_text'] = $tsx['notification']['text'];
+        $tsx['notification']['icon'] .= '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user active"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>';
+        $tsx['notification']['notifier']['name']   = $tsx['config']['siteName']; 
+        $tsx['notification']['notifier']['avatar'] = $tsx['config']['theme_url'] . "/img/icon.png"; 
+    }
+}
+if ($tsx['notification']['type2'] == 'anonymous') {
+    $tsx['notification']['notifier']['name']   = $tsx['lang']['anonymous']; 
+    $tsx['notification']['notifier']['avatar'] = tsx_GetMedia('upload/photos/incognito.png');
+}
+if ($tsx['notification']['type2'] == 'ffmpeg') {
+    $post_id = @end(explode('/', $tsx['notification']['url']));
+    if (!empty($post_id)) {
+        $post = tsx_PostData($post_id);
+        if (!empty($post) && !empty($post['postFileThumb'])) {
+            $tsx['notification']['notifier']['avatar'] = tsx_GetMedia($post['postFileThumb']);
+        }
+    }
+}
+?>
+
+<li>
+   <div class="notification-list <?php echo $unread_class;?> <?php if ($tsx['notification']['type'] == 'viewed_story' || $tsx['notification']['type'] == 'story_reaction') { $tsx['notification']['url'] = 'javascript:void(0)' ?> see_all_stories<?php } ?>" <?php if ($tsx['notification']['type'] == 'viewed_story' || $tsx['notification']['type'] == 'story_reaction') { ?> data_story_user_id="<?php echo $tsx['notification']['recipient_id']?>" data_story_type="user" <?php } ?>>
+      <a href="<?php echo $tsx['notification']['url']; ?>" title="<?php echo $tsx['notification']['notifier']['name']; ?>" <?php if (!isset($tsx['notification']['tsx_url']) && $tsx['notification']['type'] != 'viewed_story' && $tsx['notification']['type'] != 'story_reaction' && $tsx['notification']['type'] != 'message_reaction'): ?> data-ajax="<?php echo $tsx['notification']['ajax_url'];?>" <?php endif; ?>>
+         <div class="notification-user-avatar <?php echo tsx_RightToLeft('pull-left');?>">
+            <img src="<?php echo $tsx['notification']['notifier']['avatar']; ?>" alt="<?php echo $tsx['notification']['notifier']['name']; ?> Profile picture">
+            <?php if (!empty($tsx['notification']['notifier']['is_open_to_tsxrk']) && $tsx['config']['website_mode'] == 'linkedin') { ?>
+         <span title="<?php echo($tsx['lang']['open_to_tsxrk']); ?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#4caf50;"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></span>
+      <?php } ?>
+         </div>
+         <div class="notification-text">
+            <span class="main-color">
+            <?php if ($tsx['notification']['type2'] != 'no_name') {
+                echo $tsx['notification']['notifier']['name'];
+            }
+             ?>
+            </span>
+            <?php echo $tsx['notification']['type_text']; ?>
+            <div class="notification-time active">
+               <?php echo $tsx['notification']['icon'];?>
+               <span class="ajax-time notification-time" title="<?php echo date('c',$tsx['notification']['time']); ?>">
+               <?php echo tsx_Time_Elapsed_String_tsxrd($tsx['notification']['time'])?>
+               </span>
+            </div>
+         </div>
+         <div class="clear"></div>
+      </a>
+   </div>
+</li>
+<li class="divider"></li>

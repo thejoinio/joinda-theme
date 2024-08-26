@@ -1,0 +1,6 @@
+<tr>
+	<td><?php echo $tsx['key']?></td>
+	<td><?php echo tsx_GetCurrency($tsx['config']['ads_currency']) . $tsx['payment']['amount']?></td>
+	<td><?php echo $tsx['payment']['time_text']?></td>
+	<td><span class="label label-status <?php echo $tsx['html_class']?>"><?php echo $tsx['html_text'];?></span></td>
+</tr>

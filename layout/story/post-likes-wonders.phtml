@@ -1,0 +1,63 @@
+<?php 
+if ($tsx['tsxndredLikedusers']['anonymous'] == true) {
+	$anonymous = true;
+   $tsx['tsxndredLikedusers']['username'] = 'anonymous';
+   $tsx['tsxndredLikedusers']['name'] = $tsx['lang']['anonymous'];
+   $tsx['tsxndredLikedusers']['avatar'] = tsx_GetMedia('upload/photos/incognito.png');
+   $tsx['tsxndredLikedusers']['verified'] = 0;
+   $tsx['tsxndredLikedusers']['type'] = '';
+ } ?>
+<div class="who_react_to_this_user">
+	<div class="who_react_to_this_user_info">
+		<div class="avatar <?php echo tsx_RightToLeft('pull-left');?>" id="inline_emo_react">
+			<?php if (!isset($anonymous)) { ?>
+			<a href="<?php echo tsx_SeoLink('index.php?link1=timeline&u=' .  $tsx['tsxndredLikedusers']['username'] . '');?>" data-ajax="?link1=timeline&u=<?php echo $tsx['tsxndredLikedusers']['username'];?>">
+			<img src="<?php echo $tsx['tsxndredLikedusers']['avatar'];?>" alt="<?php echo $tsx['tsxndredLikedusers']['name']; ?> Profile Picture" />
+			<?php if( isset( $tsx['tsxndredLikedusers']['reaction'] ) ){?>
+				<span class="like-emo tsx_who_react_this">
+					<?php
+						switch (strtolower($tsx['tsxndredLikedusers']['reaction'])) {
+							case 'like':
+								echo '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--like"><div class="emoji__hand"><div class="emoji__thumb"></div></div></div></div>';
+							break;
+							case 'love':
+								echo '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--love"><div class="emoji__heart"></div></div></div>';
+							break;
+							case 'haha':
+								echo '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--haha"><div class="emoji__face"><div class="emoji__eyes"></div><div class="emoji__mouth"><div class="emoji__tongue"></div></div></div></div></div>';
+							break;
+							case 'joinda':
+								echo '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--joinda"><div class="emoji__face"><div class="emoji__eyebrows"></div><div class="emoji__eyes"></div><div class="emoji__mouth"></div></div></div></div>';
+							break;
+							case 'sad':
+								echo '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--sad"><div class="emoji__face"><div class="emoji__eyebrows"></div><div class="emoji__eyes"></div><div class="emoji__mouth"></div></div></div></div>';
+							break;
+							case 'angry':
+								echo '<div class="inline_post_emoji inline_act_emoji no_anim"><div class="emoji emoji--angry"><div class="emoji__face"><div class="emoji__eyebrows"></div><div class="emoji__eyes"></div><div class="emoji__mouth"></div></div></div></div>';
+							break;
+							default:
+							}
+						?>
+				</span>
+			<?php } ?>
+			</a>
+			<?php }else{ ?>
+				<img src="<?php echo $tsx['tsxndredLikedusers']['avatar'];?>" alt="<?php echo $tsx['tsxndredLikedusers']['name']; ?> Profile Picture" />
+			<?php } ?>
+		</div>
+		<div>
+			<?php if (!isset($anonymous)) { ?>
+			<span class="user-popover views_info_count" data-id="<?php echo $tsx['tsxndredLikedusers']['id']; ?>" data-row-id="<?php echo $tsx['tsxndredLikedusers']['row_id']; ?>" data-type="<?php echo $tsx['tsxndredLikedusers']['type']; ?>">
+				<a href="<?php echo tsx_SeoLink('index.php?link1=timeline&u=' .  $tsx['tsxndredLikedusers']['username'] . '');?>" data-ajax="?link1=timeline&u=<?php echo $tsx['tsxndredLikedusers']['username'];?>"><p><?php echo $tsx['tsxndredLikedusers']['name']; ?></p></a>
+			</span>
+			<?php }else{ ?>
+				<p><?php echo $tsx['tsxndredLikedusers']['name']; ?></p>
+			<?php } ?>
+		</div>
+	</div>
+	<div class="user-follow-button">
+		<?php if ($tsx['tsxndredLikedusers']['anonymous'] != true) {
+		echo tsx_GetFollowButton($tsx['tsxndredLikedusers']['user_id']);
+	} ?>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+<div class="col-md-4 tsx_jobs_list_col product" id="product-<?php echo $tsx['job']['id']?>" data-id="<?php echo $tsx['job']['id']?>">
+	<div class="tsx_jobs_list">
+		<div class="tsx_jlist_headimg">
+			<a href="<?php echo $tsx['job']['url']?>"><img src="<?php echo tsx_GetMedia($tsx['job']['image']);?>"></a>
+		</div>
+		<div class="tsx_jlist_info">
+			<div class="tsx_jlist_info_head">
+				<h2><a href="<?php echo $tsx['job']['url']?>" title="<?php echo $tsx['job']['title']?>"><?php echo $tsx['job']['title']?></a></h2>
+			</div>
+			<div class="tsx_jlist_info_main">
+				<span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#e91e63" d="M5,6H23V18H5V6M14,9A3,3 0 0,1 17,12A3,3 0 0,1 14,15A3,3 0 0,1 11,12A3,3 0 0,1 14,9M9,8A2,2 0 0,1 7,10V14A2,2 0 0,1 9,16H19A2,2 0 0,1 21,14V10A2,2 0 0,1 19,8H9M1,10H3V20H19V22H1V10Z"></path></svg> <?php echo (!empty($tsx['currencies'][$tsx['job']['currency']]['symbol'])) ? $tsx['currencies'][$tsx['job']['currency']]['symbol'] : '$';?><?php echo $tsx['job']['minimum']?> - <?php echo (!empty($tsx['currencies'][$tsx['job']['currency']]['symbol'])) ? $tsx['currencies'][$tsx['job']['currency']]['symbol'] : '$';?><?php echo $tsx['job']['maximum']?></span>
+				<?php
+					$product_by_ = $tsx['job']['category'];
+					$product_by_ = str_replace('{product_category_name}', $tsx['job_categories'][$tsx['job']['category']], $product_by_);
+				?>
+				<span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="#673ab7" d="M11,13.5V21.5H3V13.5H11M12,2L17.5,11H6.5L12,2M17.5,13C20,13 22,15 22,17.5C22,20 20,22 17.5,22C15,22 13,20 13,17.5C13,15 15,13 17.5,13Z"></path></svg> <a href="<?php echo tsx_SeoLink('index.php?link1=jobs');?>?c_id=<?php echo($tsx['job']['category']) ?>"><?php echo $tsx['job_categories'][$tsx['job']['category']];?></a></span>
+			</div>
+			<?php if ($tsx['job']['user_id'] != $tsx['user']['id']) { ?>
+				<a class="btn btn-warning btn-block btn-mat" href="<?php echo $tsx['job']['url']?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" /></svg> <?php echo $tsx['lang']['apply_now'] ?></a>
+			<?php } ?>
+			<?php if (tsx_IsModerator() || tsx_IsAdmin()) { ?>
+				<a class="btn btn-danger btn-block btn-mat" href="javascript:void(0)" onclick="tsx_OpenJobDeleteBox(<?php echo  $tsx['job']['id']; ?>);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.37,8.91L19.37,10.64L7.24,3.64L8.24,1.91L11.28,3.66L12.64,3.29L16.97,5.79L17.34,7.16L20.37,8.91M6,19V7H11.07L18,11V19A2,2 0 0,1 16,21H8A2,2 0 0,1 6,19Z" /></svg> <?php echo $tsx['lang']['delete'] ?></a>
+			<?php } ?>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

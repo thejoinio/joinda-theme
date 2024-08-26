@@ -1,0 +1,24 @@
+<?php 
+	$group_privacy = $tsx['lang']['public'];
+	if ($tsx['group']['privacy'] == 2) {
+		$group_privacy = $tsx['lang']['private'];
+	}
+?>
+<div class="col-md-3 col-sm-6">
+	<div class="joinda_content joinda_my_groups">
+		<div class="avatar">
+			<a href="<?php echo $tsx['group']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $tsx['group']['group_name'];?>">
+				<img src="<?php echo $tsx['group']['avatar'];?>" alt="<?php echo $tsx['group']['group_name']; ?> Profile Picture" />
+			</a>
+		</div>
+		<div class="joinda_my_groups_info">
+			<h3 class="page_title"><a href="<?php echo $tsx['group']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $tsx['group']['group_name'];?>"><?php echo $tsx['group']['group_title']; ?></a></h3>
+			<p><?php echo tsx_CountGroupMembers($tsx['group']['id']);?> <?php echo $tsx['lang']['members']; ?></p>
+			<?php if( isset( $tsx['group']['tsx_GroupSug'] ) ){ ?>
+				<?php echo tsx_GetJoinButton($tsx['group']['id']);?>
+			<?php }else{ ?>
+				<a href="<?php echo tsx_SeoLink('index.php?link1=group-setting&group=' .  $tsx['group']['group_name']); ?>" data-ajax="?link1=group-setting&group=<?php echo $tsx['group']['group_name'];?>" class="btn btn-default btn-mat"><?php echo $tsx['lang']['edit']; ?></a>
+			<?php } ?>
+		</div>
+	</div>
+</div>

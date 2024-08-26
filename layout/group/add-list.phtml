@@ -1,0 +1,14 @@
+<div class="col-xs-6 col-sm-4 nearby_user_wrapper text-center user-data" id="add-<?php echo $tsx['UsersList']['user_id']?>" data-user-id="<?php echo $tsx['UsersList']['user_id'];?>">
+	<div class="avatar">
+		<img src="<?php echo $tsx['UsersList']['avatar'];?>" alt="<?php echo $tsx['UsersList']['name']; ?> Profile Picture" />
+		</div>
+	<span class="user-popover" data-id="<?php echo $tsx['UsersList']['id'];?>" data-type="<?php echo $tsx['UsersList']['type'];?>">
+		<a href="<?php echo $tsx['UsersList']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $tsx['UsersList']['username'];?>" class="user_wrapper_link"><?php echo $tsx['UsersList']['name']; ?></a>
+	</span>
+	<?php if($tsx['config']['user_lastseen'] == 1 && $tsx['UsersList']['showlastseen'] != 0): ?>
+		<div class="user-lastseen"><?php echo tsx_UserStatus($tsx['UsersList']['user_id'],$tsx['UsersList']['lastseen']); ?></div>
+	<?php endif; ?>
+	<div class="user-follow-button">
+		<button type="button" onclick="tsx_RegisterAddGroup(<?php echo $tsx['UsersList']['user_id'];?>, <?php echo $tsx['group_profile']['id'];?>)" class="btn btn-default btn-sm"><?php echo $tsx['lang']['add'];?></button>
+	</div>
+</div>

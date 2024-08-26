@@ -1,0 +1,23 @@
+<?php if ($tsx['story']['postType'] == 'ad'): ?>
+  <?php echo tsx_LoadPage('story/includes/advertisement'); ?>
+<?php else: ?>
+  <?php if ($tsx['story']['postType'] == 'job' && !empty($tsx['story']['job_id'])) {
+		echo tsx_LoadPage('story/includes/job');
+	 }else if (!empty($tsx['story']['fund_raise_id']) || !empty($tsx['story']['fund_id'])){
+	 	if (!empty($tsx['story']['fund_raise_id'])) {
+	 		$tsx['story']['fund'] = GetFundByRaiseId($tsx['story']['fund_raise_id'],$tsx['story']['user_id']);
+	 		$tsx['story']['fund']['fund']['title'] = stripslashes($tsx['story']['fund']['fund']['title']);
+	 	}
+	 	if (!empty($tsx['story']['fund_id'])) {
+	 		$tsx['story']['fund_data'] = GetFundingById($tsx['story']['fund_id']);
+	 		$tsx['story']['fund_data']['title'] = stripslashes($tsx['story']['fund_data']['title']);
+	 	}
+	 	
+	 	echo tsx_LoadPage('story/includes/post-layout');
+	 }else if (!empty($tsx['story']['product_id']) && !empty($tsx['story']['product']) && !empty($tsx['story']['product']['images']) && $tsx['page']  == 'story') {
+		 echo tsx_LoadPage('story/includes/product_full');
+	 }else if ( is_array($tsx['story']) ): ?>
+  <?php echo tsx_LoadPage('story/includes/post-layout'); ?>
+  <?php endif; ?>
+<?php endif; ?>
+

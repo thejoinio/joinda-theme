@@ -1,0 +1,25 @@
+<div class="notifications-popup-list" onclick="RemoveNotification(this)" data-id="<?php echo $tsx['notification']['id']?>">
+   <div class="notification-list <?php if ($tsx['notification']['type'] == 'viewed_story') { $tsx['notification']['url'] = 'javascript:void(0)' ?> see_all_stories<?php } ?>" <?php if ($tsx['notification']['type'] == 'viewed_story') { ?> data_story_user_id="<?php echo $tsx['notification']['recipient_id']?>" data_story_type="user" <?php } ?>>
+      <a href="<?php echo $tsx['notification']['url']; ?>" title="<?php echo $tsx['notification']['notifier']['name']; ?>" <?php if (!isset($tsx['notification']['tsx_url']) && $tsx['notification']['type'] != 'viewed_story'): ?> data-ajax="<?php echo $tsx['notification']['ajax_url'];?>" <?php endif; ?>>
+         <div class="notification-user-avatar <?php echo tsx_RightToLeft('pull-left');?>">
+            <img src="<?php echo $tsx['notification']['notifier']['avatar']; ?>" alt="<?php echo $tsx['notification']['notifier']['name']; ?> Profile picture">
+         </div>
+         <div class="notification-text">
+            <span class="main-color">
+            <?php if ($tsx['notification']['type2'] != 'no_name') {
+                echo $tsx['notification']['notifier']['name'];
+            }
+             ?>
+            </span>
+            <?php echo $tsx['notification']['type_text']; ?>
+            <div class="notification-time active">
+               <?php echo $tsx['notification']['icon'];?>
+               <span class="ajax-time" title="<?php echo date('c',$tsx['notification']['time']); ?>">
+               <?php echo tsx_Time_Elapsed_String($tsx['notification']['time'])?>
+               </span>
+            </div>
+         </div>
+         <div class="clear"></div>
+      </a>
+   </div>
+</div>

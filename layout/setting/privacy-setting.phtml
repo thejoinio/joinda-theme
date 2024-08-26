@@ -1,0 +1,296 @@
+<div class="joinda_content settings-head">
+	<div class="infoz">
+    	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="background-color: #e7e3ef;"><path fill="#673ab7" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20.24 12,20.92C9.89,20.24 8.08,18.85 6.87,17C6.53,16.5 6.24,16 6,15.47C6,13.82 8.71,12.47 12,12.47C15.29,12.47 18,13.79 18,15.47C17.76,16 17.47,16.5 17.13,17Z"></path></svg>
+		<p style="color:#673ab7;"><?php echo $tsx['lang']['privacy_setting']; ?></p>
+	</div>
+</div>
+<div class="tsx_settings_page joinda_content">
+	<form class="form-horizontal setting-privacy-form" method="post">
+         <div class="setting-privacy-alert setting-update-alert"></div>
+		 
+		 <div class="setting-panel joinda_sett_privt_labls">
+			<!-- Select Basic -->
+			<?php if ($tsx['config']['connectivitySystem'] == 0) { ?>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="follow_privacy"> <?php echo $tsx['lang']['follow_privacy_label']; ?></label>
+				<div class="col-md-6">
+					<select id="follow_privacy" name="follow_privacy" class="form-control">
+						<?php 
+							$selected_followp_everyone   = ($tsx['setting']['follow_privacy'] == 0)   ? ' selected' : '';
+							$selected_followp_following  = ($tsx['setting']['follow_privacy'] == 1)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_followp_everyone; ?>><?php echo $tsx['lang']['everyone']; ?></option>
+						<option value="1" <?php echo $selected_followp_following; ?>>
+							<?php  echo $tsx['lang']['people_i_follow']; ?>
+						</option>
+					</select>
+				</div>
+			</div>
+			<?php } ?>
+			<!-- Select Basic -->
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="message_privacy"><?php echo $tsx['lang']['message_privacy_label']; ?></label>
+				<div class="col-md-6">
+					<select id="message_privacy" name="message_privacy" class="form-control">
+						<?php 
+							$selected_meesageP_everyone   = ($tsx['setting']['message_privacy'] == 0)   ? ' selected' : '';
+							$selected_meesageP_following  = ($tsx['setting']['message_privacy'] == 1)   ? ' selected' : '';
+							$selected_meesageP_nobody  = ($tsx['setting']['message_privacy'] == 2)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_meesageP_everyone; ?> ><?php echo $tsx['lang']['everyone']; ?></option>
+						<option value="1" <?php echo $selected_meesageP_following; ?> >
+							<?php 
+							if ($tsx['config']['connectivitySystem'] == 1) {
+								echo $tsx['lang']['my_friends'];
+							} else {
+								echo $tsx['lang']['people_i_follow'];
+							}
+							?>
+						</option>
+						<option value="2" <?php echo $selected_meesageP_nobody; ?> ><?php echo $tsx['lang']['no_body']; ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="friend_privacy"><?php  echo $tsx['lang']['friend_privacy']; ?></label>
+				<div class="col-md-6">
+					<select id="friend_privacy" name="friend_privacy" class="form-control">
+						<?php 
+							$selected_friendP_everyone    = ($tsx['setting']['friend_privacy'] == 0)   ? ' selected' : '';
+							$selected_friendP_following   = ($tsx['setting']['friend_privacy'] == 1)   ? ' selected' : '';
+							$selected_friendP_followingme = ($tsx['setting']['friend_privacy'] == 2)   ? ' selected' : '';
+							$selected_friendP_no_one      = ($tsx['setting']['friend_privacy'] == 3)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_friendP_everyone; ?> >
+							<?php echo $tsx['lang']['everyone']; ?>  
+						</option>
+						<option value="1" <?php echo $selected_friendP_following; ?> >
+							<?php echo $tsx['lang']['people_i_follow'];?>
+						</option>
+						<option value="2" <?php echo $selected_friendP_followingme; ?> >
+							<?php echo $tsx['lang']['people_follow_me'];?>
+						</option>
+						<option value="3" <?php echo $selected_friendP_no_one; ?> >
+							<?php echo $tsx['lang']['no_body'];?>
+						</option>
+					</select>
+				</div>
+			</div>
+			<!-- Select Basic -->
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="post_privacy"><?php echo $tsx['lang']['timeline_post_privacy_label']; ?></label>
+				<div class="col-md-6">
+					<select id="post_privacy" name="post_privacy" class="form-control">
+						<?php 
+							$selected_postp_everyone   = ($tsx['setting']['post_privacy'] == "everyone")   ? ' selected' : '';
+							$selected_postp_following  = ($tsx['setting']['post_privacy'] == "ifollow")     ? ' selected' : '';
+							$selected_postp_none       = ($tsx['setting']['post_privacy'] == "nobody")      ? ' selected'  : '';
+						?>
+						<option value="everyone" <?php echo $selected_postp_everyone; ?>><?php echo $tsx['lang']['everyone']; ?></option>
+						<option value="ifollow" <?php echo $selected_postp_following; ?>>
+							<?php 
+							if ($tsx['config']['connectivitySystem'] == 1) {
+								echo $tsx['lang']['my_friends'];
+							} else {
+								echo $tsx['lang']['people_i_follow'];
+							}
+							?>
+						</option>
+						<option value="nobody" <?php echo $selected_postp_none; ?>><?php echo $tsx['lang']['no_body']; ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="birth_privacy"><?php echo $tsx['lang']['timeline_birthday_label']; ?></label>
+				<div class="col-md-6">
+					<select id="birth_privacy" name="birth_privacy" class="form-control">
+						<?php 
+							$selected_birth_privacy_everyone   = ($tsx['setting']['birth_privacy'] == 0)   ? ' selected' : '';
+							$selected_birth_privacy_following  = ($tsx['setting']['birth_privacy'] == 1)     ? ' selected' : '';
+							$selected_birth_privacy_none       = ($tsx['setting']['birth_privacy'] == 2)      ? ' selected'  : '';
+						?>
+						<option value="0" <?php echo $selected_birth_privacy_everyone; ?>><?php echo $tsx['lang']['everyone']; ?></option>
+						<option value="1" <?php echo $selected_birth_privacy_following; ?>>
+							<?php 
+							if ($tsx['config']['connectivitySystem'] == 1) {
+								echo $tsx['lang']['my_friends'];
+							} else {
+								echo $tsx['lang']['people_i_follow'];
+							}
+							?>
+						</option>
+						<option value="2" <?php echo $selected_birth_privacy_none; ?>><?php echo $tsx['lang']['no_body']; ?></option>
+					</select>
+				</div>
+			</div>
+			<?php if($tsx['config']['connectivitySystem'] == 0) { ?>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="confirm_followers"> <?php echo $tsx['lang']['confirm_request_privacy_label']; ?> </label>
+				<div class="col-md-6">
+					<select id="confirm_followers" name="confirm_followers" class="form-control">
+						<?php 
+							$selected_confirm_followers_no   = ($tsx['setting']['confirm_followers'] == 0)   ? ' selected' : '';
+							$selected_confirm_followers_yes  = ($tsx['setting']['confirm_followers'] == 1)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_confirm_followers_no; ?>>
+							<?php echo $tsx['lang']['no']; ?>
+						</option>
+						<option value="1" <?php echo $selected_confirm_followers_yes; ?>>
+							<?php echo $tsx['lang']['yes']; ?>
+						</option>
+					</select>
+				</div>
+			</div>
+			<?php } ?>
+			<?php
+				$profileVisits = 0;
+				if ($tsx['config']['pro'] == 1) {
+					if ($tsx['setting']['is_pro'] == 1 && in_array($tsx['setting']['pro_type'], array_keys($tsx['pro_packages'])) && $tsx['pro_packages'][$tsx['user']['pro_type']]['profile_visitors'] == 1) {
+					$profileVisits = 1;
+					}
+				} else {
+					$profileVisits = 1;
+				}
+			?>
+			<?php if ($profileVisits == 1) { ?>
+			<?php if($tsx['config']['profileVisit'] == 1) { ?>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="visit_privacy"> <?php echo $tsx['lang']['profile_visit_notification_p']; ?></label>
+				<div class="col-md-6">
+					<select id="visit_privacy" name="visit_privacy" class="form-control">
+						<?php 
+							$selected_visit_privacy_yes   = ($tsx['setting']['visit_privacy'] == 0)   ? ' selected' : '';
+							$selected_visit_privacy_no    = ($tsx['setting']['visit_privacy'] == 1)   ? ' selected' : '';
+						?>
+						<option value="1" <?php echo $selected_visit_privacy_no; ?>>
+							<?php echo $tsx['lang']['no']; ?>
+						</option>
+						<option value="0" <?php echo $selected_visit_privacy_yes; ?>>
+							<?php echo $tsx['lang']['yes']; ?>
+						</option>
+					</select>
+					<span class="help-block"><?php echo $tsx['lang']['profile_visit_notification_help']; ?></span>
+				</div>
+			</div>
+			<?php } ?>
+			<?php if($tsx['config']['user_lastseen'] == 1 && in_array($tsx['setting']['pro_type'], array_keys($tsx['pro_packages'])) && $tsx['pro_packages'][$tsx['user']['pro_type']]['last_seen'] == 1) { ?>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="showlastseen"> <?php echo $tsx['lang']['lastseen_privacy_label']; ?></label>
+				<div class="col-md-6">
+					<select id="showlastseen" name="showlastseen" class="form-control">
+						<?php 
+							$selected_lastseen_yes   = ($tsx['setting']['showlastseen'] == 1)   ? ' selected' : '';
+							$selected_lastseen_no    = ($tsx['setting']['showlastseen'] == 0)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_lastseen_no; ?>>
+							<?php echo $tsx['lang']['no']; ?>
+						</option>
+						<option value="1" <?php echo $selected_lastseen_yes; ?>>
+							<?php echo $tsx['lang']['yes']; ?>
+						</option>
+					</select>
+					<span class="help-block"><?php echo $tsx['lang']['showlastseen_help']; ?></span>
+				</div>
+			</div>
+			<?php } ?>
+			<?php } ?>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="show_activities_privacy"> <?php echo $tsx['lang']['activities_privacy_label']; ?></label>
+				<div class="col-md-6">
+					<select id="show_activities_privacy" name="show_activities_privacy" class="form-control">
+						<?php 
+							$selected_activities_yes   = ($tsx['setting']['show_activities_privacy'] == 1)   ? ' selected' : '';
+							$selected_activities_no    = ($tsx['setting']['show_activities_privacy'] == 0)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_activities_no; ?>>
+							<?php echo $tsx['lang']['no']; ?>
+						</option>
+						<option value="1" <?php echo $selected_activities_yes; ?>>
+							<?php echo $tsx['lang']['yes']; ?>
+						</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="chat_status"> <?php echo $tsx['lang']['status']; ?></label>
+				<div class="col-md-6">
+					<select id="chat_status" name="status" class="form-control">
+						<?php 
+							$selected_chat_status_yes   = ($tsx['setting']['status'] == 1)   ? ' selected' : '';
+							$selected_chat_status_no    = ($tsx['setting']['status'] == 0)   ? ' selected' : '';
+						?>
+						<option value="0" <?php echo $selected_chat_status_no; ?>>
+							<?php echo $tsx['lang']['online']; ?>
+						</option>
+						<option value="1" <?php echo $selected_chat_status_yes; ?>>
+							<?php echo $tsx['lang']['offline']; ?>
+						</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="share_my_location"> <?php echo $tsx['lang']['share_my_location']; ?></label>
+				<div class="col-md-6">
+					<select id="share_my_location" name="share_my_location" class="form-control">
+						<?php 
+							$selected_share_my_location_yes   = ($tsx['setting']['share_my_location'] == 1)   ? ' selected' : '';
+							$selected_share_my_location_no    = ($tsx['setting']['share_my_location'] == 0)   ? ' selected' : '';
+						?>
+						<option value="1" <?php echo $selected_share_my_location_yes; ?>>
+							<?php echo $tsx['lang']['yes']; ?>
+						</option>
+						<option value="0" <?php echo $selected_share_my_location_no; ?>>
+							<?php echo $tsx['lang']['no']; ?>
+						</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group joinda_form_fields">
+				<label class="col-md-6" for="share_my_data"> <?php echo $tsx['lang']['index_my_page_privacy']; ?></label>
+				<div class="col-md-6">
+					<select id="share_my_data" name="share_my_data" class="form-control">
+						<?php 
+							$selected_share_my_data_yes   = ($tsx['setting']['share_my_data'] == 1)   ? ' selected' : '';
+							$selected_share_my_data_no    = ($tsx['setting']['share_my_data'] == 0)   ? ' selected' : '';
+						?>
+						<option value="1" <?php echo $selected_share_my_data_yes; ?>>
+							<?php echo $tsx['lang']['yes']; ?>
+						</option>
+						<option value="0" <?php echo $selected_share_my_data_no; ?>>
+							<?php echo $tsx['lang']['no']; ?>
+						</option>
+					</select>
+				</div>
+			</div>
+		 </div>
+
+		<div class="text-center">
+			<button type="submit" class="btn btn-main btn-mat btn-mat-raised add_joinda_loader"><?php echo $tsx['lang']['save']; ?></button>
+		</div>
+
+         <input type="hidden" name="user_id" value="<?php echo $tsx['setting']['user_id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo tsx_CreateSession();?>">
+   </form>
+</div>
+<script type="text/javascript">
+$(function() {
+  $('form.setting-privacy-form').ajaxForm({
+    url: tsx_Ajax_Requests_File() + '?f=update_privacy_settings',
+    beforeSend: function() {
+      $('.tsx_settings_page').find('.add_joinda_loader').addClass('btn-loading');
+    },
+    success: function(data) {
+      scrollToTop();
+      if (data.status == 200) {
+        $('.setting-privacy-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+          $(this).delay(2500).slideUp(500, function() {
+            $(this).remove();
+          });
+        });
+      } 
+      $('.tsx_settings_page').find('.add_joinda_loader').removeClass('btn-loading');
+    }
+  });
+});
+</script>

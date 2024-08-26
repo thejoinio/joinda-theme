@@ -1,0 +1,14 @@
+<div class="joinda_side_loggd_usr">
+	<div class="joinda_side_loggd_usr_cvr">
+		<img src="<?php echo $tsx['friend']['cover']?>" alt="<?php echo $tsx['friend']['name'];?>">
+	</div>
+	<div class="joinda_side_loggd_usr_hdr">
+		<div class="avatar">
+			<img alt="<?php echo $tsx['friend']['name'];?>" src="<?php echo $tsx['friend']['avatar']?>">
+		</div>
+		<div class="title">
+			<a href="<?php echo $tsx['friend']['url'];?>" data-ajax="?link1=timeline&amp;u=<?php echo $tsx['friend']['username']?>"><?php echo $tsx['friend']['name'];?></a>
+		</div>
+	</div>
+	<div class="text-center"><?php echo tsx_GetMessageButton($tsx['friend']['user_id']);?></div>
+</div>

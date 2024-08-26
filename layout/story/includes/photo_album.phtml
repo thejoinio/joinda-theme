@@ -1,0 +1,133 @@
+<?php if (!empty($tsx['story']['photo_album']) && $tsx['story']['blur'] == 1) { ?>
+  <div class="post-file show_album_<?php echo $tsx['story']['id']; ?> blur_multi_images" id="fullsizeimg">
+    <button class='btn btn-main image_blur_btn remover_blur_btn_<?php echo $tsx['story']['id']; ?>' onclick='tsx_RemoveBlurAlbum(this,<?php echo $tsx['story']['id']; ?>)'><?php echo $tsx['lang']['view_image']; ?></button>
+        <img src="<?php echo(tsx_GetMedia($tsx['story']['photo_album'][0]['image_org'])) ?>" alt='image' class='image-file pointer image_blur remover_blur_<?php echo $tsx['story']['id']; ?>'>
+      </div>
+<?php } ?>
+<?php if (!empty($tsx['story']['photo_album'])) {
+ $class = '';
+ $small = '';
+ if (count($tsx['story']['photo_album']) == 2) {
+      $class = 'width-2';
+ }
+ if (count($tsx['story']['photo_album']) > 1) {
+      $small = '_small';
+ }
+ if (count($tsx['story']['photo_album']) > 2) {
+      $class = 'width-3';
+ }
+ $delete  = '';
+ $onhover = '';
+
+if (count($tsx['story']['photo_album']) == 3) {
+echo "<div class='tsx_adaptive_media'>";
+   foreach ($tsx['story']['photo_album'] as $photo) {
+      if ($tsx['story']['admin'] === true) {
+      $delete = "<span onclick='tsx_RemoveAlbumImage(" . $photo['parent_id'] . "," . $photo['id'] . ");' class='pointer'><i class='fa fa-remove'></i></span>";
+        $onhover = "onmouseover='tsx_ShowDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ")' onmouseleave='tsx_HideDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ");'";
+      }
+      $multi_image_function = "tsx_OpenAlbumLightBox(" . $photo['id'] . ", \"album\");";
+       if (!empty($photo['parent_id'])) {
+         $multi_image_function = "tsx_OpenLightBox(" . $photo['parent_id'] . ", \"album\");";
+       }
+      echo  "<div class='album-image " . $class . "' id='image-" . $photo['id'] . "' data_image_parent='image-" . $photo['parent_id'] . "' {$onhover}>{$delete}<img src='" . tsx_GetMedia($photo['image_org']) . "' alt='image' class='image-file pointer' onclick='".$multi_image_function."'></div>";
+   }
+
+echo "</div>";
+}
+
+else if (count($tsx['story']['photo_album']) == 4) {
+echo "<div class='tsx_adaptive_media_4'>";
+   foreach ($tsx['story']['photo_album'] as $photo) {
+      if ($tsx['story']['admin'] === true) {
+      $delete = "<span onclick='tsx_RemoveAlbumImage(" . $photo['parent_id'] . "," . $photo['id'] . ");' class='pointer'><i class='fa fa-remove'></i></span>";
+        $onhover = "onmouseover='tsx_ShowDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ")' onmouseleave='tsx_HideDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ");'";
+      }
+      $multi_image_function = "tsx_OpenAlbumLightBox(" . $photo['id'] . ", \"album\");";
+       if (!empty($photo['parent_id'])) {
+         $multi_image_function = "tsx_OpenLightBox(" . $photo['parent_id'] . ", \"album\");";
+       }
+      echo  "<div class='album-image " . $class . "' id='image-" . $photo['id'] . "' data_image_parent='image-" . $photo['parent_id'] . "' {$onhover}>{$delete}<img src='" . tsx_GetMedia($photo['image_org']) . "' alt='image' class='image-file pointer' onclick='".$multi_image_function."'></div>";
+   }
+
+echo "</div>";
+}
+
+else if (count($tsx['story']['photo_album']) == 5) {
+echo "<div class='tsx_adaptive_media_5'>";
+   foreach ($tsx['story']['photo_album'] as $photo) {
+      if ($tsx['story']['admin'] === true) {
+      $delete = "<span onclick='tsx_RemoveAlbumImage(" . $photo['parent_id'] . "," . $photo['id'] . ");' class='pointer'><i class='fa fa-remove'></i></span>";
+        $onhover = "onmouseover='tsx_ShowDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ")' onmouseleave='tsx_HideDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ");'";
+      }
+      $multi_image_function = "tsx_OpenAlbumLightBox(" . $photo['id'] . ", \"album\");";
+       if (!empty($photo['parent_id'])) {
+         $multi_image_function = "tsx_OpenLightBox(" . $photo['parent_id'] . ", \"album\");";
+       }
+      echo  "<div class='album-image " . $class . "' id='image-" . $photo['id'] . "' data_image_parent='image-" . $photo['parent_id'] . "' {$onhover}>{$delete}<img src='" . tsx_GetMedia($photo['image_org']) . "' alt='image' class='image-file pointer' onclick='".$multi_image_function."'></div>";
+   }
+
+echo "</div>";
+}
+
+else if (count($tsx['story']['photo_album']) > 3) {
+   foreach (array_slice($tsx['story']['photo_album'],0,3) as $key => $photo) {
+    $multi_image_function = "tsx_OpenAlbumLightBox(" . $photo['id'] . ", \"album\");";
+     if (!empty($photo['parent_id'])) {
+       $multi_image_function = "tsx_OpenLightBox(" . $photo['parent_id'] . ", \"album\");";
+     }
+    if ($key == 2) {
+        echo "<div onclick='".$multi_image_function."' class='album-collapse pull-left pointer'> 
+                  <img src='".tsx_GetMedia($photo['image_org'])."' class='image-file'>
+                  <span>+".count(array_slice($tsx['story']['photo_album'],2))."</span>
+              </div>
+              "; 
+    }
+    else{
+      if ($tsx['story']['admin'] === true) {
+        $delete = "<span onclick='tsx_RemoveAlbumImage(" . $photo['parent_id'] . "," . $photo['id'] . ");' class='pointer'><i class='fa fa-remove'></i></span>";
+        $onhover = "onmouseover='tsx_ShowDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ")' onmouseleave='tsx_HideDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ");'";
+      }
+      echo  "<div class='album-image " . $class . "' id='image-" . $photo['id'] . "' data_image_parent='image-" . $photo['parent_id'] . "' {$onhover}>{$delete}<img src='" . tsx_GetMedia($photo['image_org']) . "' alt='image' class='image-file  pointer' onclick='".$multi_image_function."'></div>";
+      }
+   }
+   foreach (array_slice($tsx['story']['photo_album'],3) as $photo) {
+      if ($tsx['story']['admin'] === true) {
+      $delete = "<span onclick='tsx_RemoveAlbumImage(" . $photo['parent_id'] . "," . $photo['id'] . ");' class='pointer'><i class='fa fa-remove'></i></span>";
+        $onhover = "onmouseover='tsx_ShowDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ")' onmouseleave='tsx_HideDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ");'";
+      }
+      $multi_image_function = "tsx_OpenAlbumLightBox(" . $photo['id'] . ", \"album\");";
+     if (!empty($photo['parent_id'])) {
+       $multi_image_function = "tsx_OpenLightBox(" . $photo['parent_id'] . ", \"album\");";
+     }
+      echo  "<div class='album-image " . $class . "' id='image-" . $photo['id'] . "' data_image_parent='image-" . $photo['parent_id'] . "' {$onhover}>{$delete}<img src='" . tsx_GetMedia($photo['image_org']) . "' alt='image' class='image-file pointer hidden' onclick='".$multi_image_function."'></div>";
+   }
+}
+elseif (count($tsx['story']['photo_album']) == 2) {
+  foreach ($tsx['story']['photo_album'] as $photo) {
+      if ($tsx['story']['admin'] === true) {
+        $delete = "<span onclick='tsx_RemoveAlbumImage(" . $photo['parent_id'] . "," . $photo['id'] . ");' class='pointer'><i class='fa fa-remove'></i></span>";
+        $onhover = "onmouseover='tsx_ShowDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ")' onmouseleave='tsx_HideDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ");'";
+      }
+      $multi_image_function = "tsx_OpenAlbumLightBox(" . $photo['id'] . ", \"album\");";
+     if (!empty($photo['parent_id'])) {
+       $multi_image_function = "tsx_OpenLightBox(" . $photo['parent_id'] . ", \"album\");";
+     }
+      echo  "<div style='text-align:center;width: 100%;' class='album-image " . $class . "' id='image-" . $photo['id'] . "' data_image_parent='image-" . $photo['parent_id'] . "' {$onhover}>{$delete}<img src='" . tsx_GetMedia($photo['image_org']) . "' alt='image' class='image-file pointer' onclick='".$multi_image_function."'></div>";
+    }
+}
+else{
+    foreach ($tsx['story']['photo_album'] as $photo) {
+      if ($tsx['story']['admin'] === true) {
+        $delete = "<span onclick='tsx_RemoveAlbumImage(" . $photo['post_id'] . "," . $photo['id'] . ");' class='pointer'><i class='fa fa-remove'></i></span>";
+        $onhover = "onmouseover='tsx_ShowDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ")' onmouseleave='tsx_HideDeleteButton(" . $photo['post_id'] . "," . $photo['id'] . ");'";
+      }
+      $multi_image_function = "tsx_OpenAlbumLightBox(" . $photo['id'] . ", \"album\");";
+     if (!empty($photo['parent_id'])) {
+       $multi_image_function = "tsx_OpenLightBox(" . $photo['parent_id'] . ", \"album\");";
+     }
+      echo  "<div style='text-align:center;width: 100%;' class='album-image " . $class . "' id='image-" . $photo['id'] . "' data_image_parent='image-" . $photo['parent_id'] . "' {$onhover}>{$delete}<img src='" . tsx_GetMedia($photo['image_org']) . "' alt='image' class='image-file pointer' onclick='".$multi_image_function."'></div>";
+    }
+}
+} 
+?>

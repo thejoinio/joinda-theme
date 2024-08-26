@@ -1,0 +1,10 @@
+
+<?php
+if ($tsx['config']['profile_privacy'] == 1) {
+  $users = tsx_WelcomeUsers(10,'welcome');
+  foreach ($users as $key => $tsx['user']) {
+  	 $tsx['key'] = $key + 1;
+  	 echo tsx_LoadPage('welcome/welcome-users-list');
+  }
+}
+?>

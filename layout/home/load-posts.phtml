@@ -1,0 +1,58 @@
+<div id="posts">
+	<?php
+		if ($tsx['config']['pro'] == 1) {
+		$promoted = $tsx['story'] = tsx_GetPromotedPost();
+		if (count($promoted) > 0) {
+		$tsx['story']['post_is_promoted'] = 1;
+	?>
+	<div class="promoted-post">
+		<span class="promoted-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award" data-toggle="tooltip" title="<?php echo $tsx['lang']['promoted'];?>"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg> </span>
+		<?php echo tsx_LoadPage('story/content'); ?>
+	</div>
+	<?php } } ?>
+	<?php 
+            $users = tsx_UserSug(10);
+            if (count($users) != 0) {
+            ?>
+        <ul class="list-group" id="sidebar-user-list-container">
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false"><?php echo $tsx['lang']['people_you_may_know'];?>
+				<span onclick="tsx_ReloadSideBarUsers();" class="<?php echo tsx_RightToLeft('pull-right');?> refresh">
+                <i class="fa fa-repeat progress-icon" data-icon="repeat"></i>
+                </span>
+            </li>
+            <li>
+                <div class="sidebar-users-may-know-container">
+                    <?php 
+                        foreach ($users as $tsx['UsersList']) {
+                            $tsx['UsersList']['user_name'] = mb_substr($tsx['UsersList']['name'],0,10, "utf-8");
+                            echo tsx_LoadPage('sidebar/sidebar-user-list');
+                        } 
+                        ?>
+                </div>
+                <div class="clear"></div>
+            </li>
+        </ul>
+    <?php } ?>
+	<?php
+		$stories = tsx_GetPosts(array('limit' => 10, 'publisher_id' => 0,'placement' => 'multi_image_post','anonymous' => true));
+		if (count($stories) <= 0) {
+			echo tsx_LoadPage('story/no-stories');
+		} else {
+			foreach ($stories as $tsx['story']) {
+				echo tsx_LoadPage('story/content');
+			}
+		}
+		?>
+</div>
+<?php if (count($stories) > 0) { ?>
+<div class="load-more pointer" id="load-more-posts" onclick="tsx_GetMorePosts();">
+	<span class="btn btn-default">
+		<i class="fa fa-chevron-circle-down progress-icon" data-icon="chevron-circle-down"></i> &nbsp;<?php echo $tsx['lang']['load_more_posts'];?>
+	</span>
+</div>
+<?php } ?>
+<!-- .load-more pointer -->
+<div id="load-more-filter">
+	<span class="filter-by-more hidden" data-filter-by="all"></span>
+</div>
+<!-- #load-more-filter -->

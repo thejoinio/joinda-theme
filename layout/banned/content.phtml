@@ -1,0 +1,15 @@
+<div class="page-margin">
+	<div class="joinda_content">
+		<div class="tsx_banned_user">
+			<img src="<?php echo $tsx['config']['theme_url'];?>/img/banned.png">
+			<?php if (!empty($tsx['user']['banned_reason'])) { ?>
+				<h2><?php echo str_replace('{site_name}', $tsx['config']['siteName'], $tsx['lang']['were_banned_from']);?></h2>
+				<p><span class="bold"><?php echo $tsx['lang']['reason'];?></span>: <?php echo $tsx['user']['banned_reason']; ?></p>
+				<p><?php echo str_replace('{contact_us}', '<a class="main" href="'.tsx_SeoLink('index.php?link1=contact-us').'">'.$tsx['lang']['contact_us'].'</a>', $tsx['lang']['contact_us_more_details']); ?></p>
+			<?php }else{
+				$text = str_replace('{contact_us}', '<a class="main" href="'.tsx_SeoLink('index.php?link1=contact-us').'">'.$tsx['lang']['contact_us'].'</a>', $tsx['lang']['banned_for_violating']); ?>
+				<h2><?php echo $text;?></h2>
+			<?php } ?>
+		</div>
+	</div>
+</div>

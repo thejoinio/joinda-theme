@@ -1,0 +1,260 @@
+<style>
+	.page-margin {
+		margin-top: 30px;
+	}
+</style>
+<div class="leftcol-sidebar"><?php echo tsx_LoadPage("sidebar/left-sidebar"); ?></div>
+<div class="modal fade" id="verify_code" role="dialog">
+	<div class="modal-dialog modal-md joinda_mat_mdl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></button>
+				<h4 class="modal-title" id="ttsx_factor_title">
+					<?php 
+						if ($tsx['config']['ttsx_factor_type'] == 'both') {
+							echo $tsx['lang']['confirmation_message_email_sent'];
+						}
+						elseif ($tsx['config']['ttsx_factor_type'] == 'email') {
+							echo $tsx['lang']['confirmation_email_sent'];
+						}
+						elseif ($tsx['config']['ttsx_factor_type'] == 'phone') {
+							echo $tsx['lang']['confirmation_message_sent'];
+						}
+					?>
+				</h4>
+			</div>
+			<form id="confirmation_code_form" class="confirmation_code_form" method="POST">
+				<div class="modal-body">
+					<div id="confirmation_code_form_alert"></div>
+					<span class="verfy_sett_email_phone_ico hidden"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,13.34C20.37,13.12 19.7,13 19,13A6,6 0 0,0 13,19C13,19.34 13.03,19.67 13.08,20H3A2,2 0 0,1 1,18V6C1,4.89 1.89,4 3,4H19A2,2 0 0,1 21,6V13.34M23.5,17L18.5,22L15,18.5L16.5,17L18.5,19L22,15.5L23.5,17M3,6V8L11,13L19,8V6L11,11L3,6Z" /></svg></span>
+					<p id="ttsx_factor_desc">
+						<?php 
+							if ($tsx['config']['ttsx_factor_type'] == 'both') {
+								echo $tsx['lang']['confirmation_email_message_text'];
+							}
+							elseif ($tsx['config']['ttsx_factor_type'] == 'email') {
+								echo $tsx['lang']['confirmation_email_text'];
+							}
+							elseif ($tsx['config']['ttsx_factor_type'] == 'phone') {
+								echo $tsx['lang']['confirmation_message_text'];
+							}
+						?>
+					</p>
+					<div class="joinda_form_fields verfy_sett_email_phone">
+						<label for="code"><?php echo $tsx['lang']['confirmation_code']; ?></label>  
+						<input id="code" name="code" type="text" autocomplete="off">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="ball-pulse"><div></div><div></div><div></div></div>
+					<button id="confirmation_code_form_btn" type="submit" class="btn main btn-mat"><?php echo $tsx['lang']['verify']; ?></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="verify_email_phone" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span></button>
+				<h4 class="modal-title" id="verify_email_phone_title">
+					<?php 
+						if ($tsx['config']['sms_or_email'] == 'mail') {
+							echo $tsx['lang']['confirmation_message_email_sent'];
+						}
+						elseif ($tsx['config']['sms_or_email'] == 'sms') {
+							echo $tsx['lang']['confirmation_message_sent'];
+						}
+					?>
+				</h4>
+			</div>
+			<form id="verify_email_phone_form" class="verify_email_phone_form" method="POST">
+				<div class="modal-body">
+					<div id="verify_email_phone_form_alert"></div>
+					<span class="verfy_sett_email_phone_ico"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17,19V5H7V19H17M17,1A2,2 0 0,1 19,3V21A2,2 0 0,1 17,23H7C5.89,23 5,22.1 5,21V3C5,1.89 5.89,1 7,1H17M9,7H15V9H9V7M9,11H13V13H9V11Z" /></svg></span>
+					<p id="verify_email_phone_desc">
+						<?php 
+							if ($tsx['config']['sms_or_email'] == 'mail') {
+								echo $tsx['lang']['confirmation_email_text'];
+							}
+							elseif ($tsx['config']['sms_or_email'] == 'sms') {
+								echo $tsx['lang']['confirmation_message_text'];
+							}
+						?>
+					</p>
+					<div class="form-group verfy_sett_email_phone">
+						<input type="text" class="form-control" name="code" placeholder="<?php echo $tsx['lang']['confirmation_code']; ?>">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="ball-pulse"><div></div><div></div><div></div></div>
+					<button id="verify_email_phone_form_btn" type="submit" class="btn btn-main"><?php echo $tsx['lang']['send']; ?></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="sidebar-conatnier">
+    <div class="col-md-3 sidebar rightcol">
+        <?php echo tsx_LoadPage('chat/content'); ?>
+    </div>
+</div>
+
+<?php
+$user_id            = $tsx['user']['user_id'];
+$tsx['is_admin']     = tsx_IsAdmin();
+$tsx['is_moderoter'] = tsx_IsModerator();
+
+$tsx['setting']['admin'] = false;
+if (isset($_GET['user']) && !empty($_GET['user']) && ($tsx['is_admin'] === true || $tsx['is_moderoter'] === true)) {
+    if (tsx_UserExists($_GET['user']) === false) {
+        header("Location: " . $tsx['config']['site_url']);
+        exit();
+    }
+    $user_id                = tsx_UserIdFromUsername($_GET['user']);
+    $tsx['setting']['admin'] = true;
+}
+$tsx['setting'] = tsx_UserData($user_id);
+if ($tsx['is_moderoter']) {
+  if ($tsx['setting']['admin'] == 1) {
+       header("Location: " . $tsx['config']['site_url']);
+       exit();
+  }
+}
+$tsx['setting']['fileds'] = tsx_UserFieldsData($user_id);
+$tsx['setting_page'] = 'general-setting';
+$pages_array = array(
+   'general-setting',
+   'profile-setting',
+   'privacy-setting',
+   'change-passtsxrd-setting',
+   'social-links',
+   'design-setting',
+   'avatar-setting',
+   'email-setting',
+   'verification',
+   'blocked-users',
+   'transaction_log',
+   'my_points',
+   'manage-sessions',
+   'notifications-settings',
+   'ttsx-factor',
+   'my_info',
+   'invitation_links',
+   'experience',
+   'certifications',
+   'projects',
+   'tiers',
+);
+if ($tsx['setting']['user_id'] == $tsx['user']['user_id']) {
+  $pages_array = array(
+   'general-setting',
+   'profile-setting',
+   'privacy-setting',
+   'change-passtsxrd-setting',
+   'social-links',
+   'delete-account',
+   'design-setting',
+   'avatar-setting',
+   'email-setting',
+   'verification',
+   'blocked-users',
+   'transaction_log',
+   'my_points',
+   'manage-sessions',
+   'notifications-settings',
+   'ttsx-factor',
+   'my_info',
+   'invitation_links',
+   'experience',
+   'certifications',
+   'projects',
+   'tiers',
+   );
+}
+if ($tsx['config']['store_system'] == 'on') {
+  $pages_array[] = 'addresses';
+}
+if ($tsx['config']['affiliate_system'] == 1) {
+  $pages_array[] = 'affiliates';
+}
+if ($tsx['config']['affiliate_system'] == 1 || $tsx['config']['point_allow_withdrawal'] == 1 || $tsx['config']['funding_system'] == 1) {
+	$pages_array[] = 'payments';
+}
+if (!empty($_GET['page'])) {
+   if (in_array($_GET['page'], $pages_array)) {
+      $tsx['setting_page'] = $_GET['page'];
+   }
+   if ($tsx['config']['deleteAccount'] != 1 && $tsx['setting_page'] == 'delete-account') {
+   	$tsx['setting_page'] = 'general-setting';
+   }
+}
+$tsx['user_setting'] = '';
+if (!empty($_GET['user'])) {
+    $tsx['user_setting'] = 'user=' . $_GET['user']. '&';
+}
+if ($tsx['setting_page'] == 'invitation_links') {
+	$tsx['available_links'] = tsx_GetAvailableLinks($tsx['setting']['user_id']);
+	if ($tsx['config']['user_links_limit'] > 0) {
+		$tsx['generated_links'] = $tsx['config']['user_links_limit'] - $tsx['available_links'];
+	}
+	else{
+		$tsx['generated_links'] = tsx_GetGeneratedLinks($tsx['setting']['user_id']);
+	}
+	$tsx['used_links'] = tsx_GetUsedLinks($tsx['setting']['user_id']);
+}
+if ($tsx['setting_page'] == 'addresses' && $tsx['config']['store_system'] == 'on') {
+	$tsx['address_html'] = '';
+    $tsx['addresses'] = $db->where('user_id',$tsx['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_ADDRESS);
+    if (!empty($tsx['addresses'])) {
+        foreach ($tsx['addresses'] as $key => $tsx['address']) {
+            $tsx['address_html'] .= tsx_LoadPage("setting/includes/addresses_list");
+        }
+    }
+}
+if ($tsx['setting_page'] == 'tiers' && $tsx['config']['website_mode'] == 'patreon') {
+	$tsx['tiers_html'] = '';
+    $tsx['tiers'] = $db->where('user_id',$tsx['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_TIERS);
+    if (!empty($tsx['tiers'])) {
+        foreach ($tsx['tiers'] as $key => $tsx['tier']) {
+            $tsx['tiers_html'] .= tsx_LoadPage("setting/includes/tiers_list");
+        }
+    }
+}
+if ($tsx['setting_page'] == 'experience') {
+	$tsx['experience_html'] = '';
+    $tsx['experiences'] = $db->where('user_id',$tsx['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_EXPERIENCE);
+    if (!empty($tsx['experiences'])) {
+        foreach ($tsx['experiences'] as $key => $tsx['experience']) {
+            $tsx['experience_html'] .= tsx_LoadPage("setting/includes/experience_list");
+        }
+    }
+}
+if ($tsx['setting_page'] == 'certifications') {
+	$tsx['certification_html'] = '';
+    $tsx['certifications'] = $db->where('user_id',$tsx['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_CERTIFICATION);
+    if (!empty($tsx['certifications'])) {
+        foreach ($tsx['certifications'] as $key => $tsx['certification']) {
+            $tsx['certification_html'] .= tsx_LoadPage("setting/includes/certification_list");
+        }
+    }
+}
+if ($tsx['setting_page'] == 'projects') {
+	$tsx['projects_html'] = '';
+    $tsx['projects'] = $db->where('user_id',$tsx['setting']['user_id'])->orderBy('id','DESC')->get(T_USER_PROJECTS);
+    if (!empty($tsx['projects'])) {
+        foreach ($tsx['projects'] as $key => $tsx['project']) {
+            $tsx['projects_html'] .= tsx_LoadPage("setting/includes/project_list");
+        }
+    }
+}
+?>
+
+<div class="page-margin">
+	<div class="row setting-panel" style="position:relative;">
+		<div class="col-md-4 sidebar sett_page tsx_new_sett_sidee" id="tsx_main_sett_side"><?php echo tsx_LoadPage('setting/user-setting-sidebar');?></div>
+		<div class="col-md-8 sett_page tsx_new_sett_pagee" id="tsx_main_sett_mid"><?php echo tsx_LoadPage("setting/" . $tsx['setting_page']); ?></div>
+	</div>
+</div>

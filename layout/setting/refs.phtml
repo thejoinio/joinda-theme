@@ -1,0 +1,10 @@
+<div class="ref" id="<?php echo $tsx['ref']['user_id'];?>">
+	<div class="ref-image">
+		<img src="<?php echo $tsx['ref']['avatar'];?>" alt="Image">
+	</div>
+	<div class="name">
+		<a href="<?php echo $tsx['ref']['url'];?>"><?php echo $tsx['ref']['name'];?><br></a>
+		<div class="joined"><?php echo $tsx['lang']['joined'] ?>: <?php echo tsx_Time_Elapsed_String($tsx['ref']['joined']);?></div>
+	</div>
+	<div class="clear"></div>
+</div>

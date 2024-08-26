@@ -1,0 +1,31 @@
+<div class="joinda_form_fields">
+	<?php $fid = '';
+		if (!empty($tsx['setting']['fileds'][$tsx['field']['fid']])) {
+			$fid = $tsx['setting']['fileds'][$tsx['field']['fid']];
+		} 
+		if( isset( $_GET[ $tsx['field']['fid'] ] ) && !empty( $_GET[ $tsx['field']['fid'] ] ) ){
+			$fid = tsx_Secure( $_GET[ $tsx['field']['fid'] ] );
+		}
+	?>
+	<label for="<?php echo $tsx['field']['fid'];?>"><?php echo $tsx['field']['name']; ?></label>  
+	<?php 
+		if ($tsx['field']['select_type'] == 'yes') {
+		$options = @explode(',', $tsx['field']['type']); ?>
+		<select name="<?php echo $tsx['field']['fid'];?>" class="form-control">
+				<?php if( isset( $tsx['field']['issearch'] ) ){ ?> <option value=""><?php echo $tsx['lang']['all'];?></option> <?php } ?>
+				<?php
+					foreach ($options as $key => $value) {
+					$selected = (($key + 1) == $fid) ? 'selected' : '';
+				?>
+				<option value="<?php echo $key + 1;?>" <?php echo $selected;?>><?php echo $value;?></option>
+				<?php } ?>
+		</select>
+	<?php } else { if ($tsx['field']['type'] == 'textbox') { ?>
+		<input id="<?php echo $tsx['field']['fid'];?>" name="<?php echo $tsx['field']['fid'];?>" type="text" class="form-control input-md" value="<?php echo $fid?>">
+	<?php } else if ($tsx['field']['type'] == 'textarea') {?>
+		<textarea class="form-control" id="<?php echo $tsx['field']['fid'];?>" name="<?php echo $tsx['field']['fid'];?>" rows="3"><?php echo br2nl($fid);?></textarea>
+	<?php } } ?>
+	<?php if( !isset( $tsx['field']['issearch'] ) ){ ?>
+		<span class="help-block"><?php echo $tsx['field']['description'];?></span>
+	<?php } ?>
+</div>

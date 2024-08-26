@@ -1,0 +1,16 @@
+<ul class="page-margin joinda_content negg_padd list-unstyled event-options-list" id="sidebar-albums-list-container">
+	<div class="tsx_page_hdng" style="margin-bottom: 5px;">
+		<div class="tsx_page_hdng_innr">
+			<a href="<?php echo tsx_SeoLink('index.php?link1=albums&user=' . $tsx['user_profile']['username']);?>" data-ajax="?link1=albums&user=<?php echo $tsx['user_profile']['username'];?>"><?php echo $tsx['lang']['albums'];?></a>&nbsp;<div style="font-weight: normal">(<?php echo number_format($tsx['user_profile']['details']['album_count']);?>)</div>
+		</div>
+	</div>
+	<li>
+		<div class="sidebar-albums-container list-sidebar-element"><?php 
+			foreach (tsx_GetUserAlbums($tsx['user_profile']['user_id'], 'sidebar', 12) as $tsx['album']) {
+				$tsx['album']['album_name'] = $tsx['album']['album_name'];
+				echo tsx_LoadPage('sidebar/sidebar-album-list');
+			}
+			?></div>
+	</li>
+	<li><div class="clear"></div></li>
+</ul>

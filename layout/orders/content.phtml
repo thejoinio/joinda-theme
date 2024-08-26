@@ -1,0 +1,50 @@
+<div class="leftcol-sidebar"><?php echo tsx_LoadPage("sidebar/left-sidebar"); ?></div>
+<div class="page-margin">
+	<div class="row">
+		<div class="col-md-7 singlecol">
+			<div class="page-margin joinda_content mt-0">
+				<div class="tsx_page_hdng pag_neg_padd pag_alone">
+					<div class="tsx_page_hdng_innr big_size">
+						<span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M12,18H6V14H12M21,14V12L20,7H4L3,12V14H4V20H14V14H18V20H20V14M20,4H4V6H20V4Z"></path></svg></span> <?php echo $tsx['lang']['market']; ?>
+					</div>
+				</div>
+			</div>
+			<div class="page-margin joinda_content">
+				<div class="tsx_page_hdng pag_neg_padd pag_alone">
+					<div class="tsx_page_hdng_menu">
+						<ul class="list-unstyled">
+							<?php if ($tsx['config']['can_use_market']) { ?>
+							<li><a href="<?php echo tsx_SeoLink('index.php?link1=my-products'); ?>" data-ajax="?link1=my-products"><?php echo $tsx['lang']['my_products'] ?></a></li>
+							<?php } ?>
+							<?php if ($tsx['config']['store_system'] == 'on') { ?>
+								<li><a href="<?php echo tsx_SeoLink('index.php?link1=purchased'); ?>" data-ajax="?link1=purchased"><?php echo $tsx['lang']['purchased'] ?></a></li>
+								<li class="active"><a href="<?php echo tsx_SeoLink('index.php?link1=orders'); ?>" data-ajax="?link1=orders"><?php echo $tsx['lang']['orders'] ?></a></li>
+							<?php } ?>
+							<li><a href="<?php echo tsx_SeoLink('index.php?link1=products'); ?>" data-ajax="?link1=products"><?php echo $tsx['lang']['market'] ?></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="joinda_content my_purchased_content">
+				<?php if (!empty($tsx['orders']) && count($tsx['orders']) > 0): ?>
+					<div class="row">
+						<?php echo($tsx['html']); ?>
+					</div>
+
+					<?php if (count($tsx['orders']) == 10){ ?>
+						<div class="purchased_posts_load">
+							<div class="purchased_load-more">
+								<button class="btn btn-default text-center pointer" onclick="tsx_LoadOrders();"><?php echo $tsx['lang']['load_more']; ?></button>
+							</div>
+						</div>
+						<?php } ?>
+				<?php else: ?>
+					<?php echo($tsx['html']); ?>
+				<?php endif; ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!-- .row -->
+</div>

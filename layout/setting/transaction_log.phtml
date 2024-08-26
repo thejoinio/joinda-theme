@@ -1,0 +1,19 @@
+<?php 
+$tsx['trans'] = tsx_GetMytransactions(array('user_id' => $tsx['setting']['user_id']));
+?>
+<div class="tsx_settings_page joinda_content">
+	<div class="avatar-holder">
+		<img src="<?php echo $tsx['setting']['avatar']?>" alt="<?php echo $tsx['setting']['name']?> Profile Picture" class="avatar">
+		<div class="infoz">
+			<h5 title="<?php echo $tsx['setting']['name']?>"><a href="<?php echo tsx_SeoLink('index.php?link1=timeline&u=' . $tsx['setting']['username'] . '');?>" data-ajax="?link1=timeline&u=<?php echo $tsx['setting']['username'] ?>"><?php echo $tsx['setting']['name']?></a></h5>
+			<p><?php echo $tsx['lang']['transaction_log']; ?></p>
+		</div>
+	</div>
+	<hr>
+
+	<div class="wallet_transactions joinda_sett_trans_table">
+		<div class="tabbable">
+			<?php echo tsx_LoadPage('setting/includes/latest_activities');?>
+		</div>
+	</div>
+</div>

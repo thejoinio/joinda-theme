@@ -1,0 +1,23 @@
+<div class="joinda_form_fields">
+	<label for="fid_<?php echo $tsx['field']['id'];?>"><?php echo $tsx['field']['name']; ?></label>  
+	<?php 
+	$required = '';
+	if ($tsx['field']['required'] == 'on') {
+		$required = 'required';
+	}
+		if ($tsx['field']['type'] == 'selectbox') {
+		$options = @explode(',', $tsx['field']['options']); ?>
+		<select name="fid_<?php echo $tsx['field']['id'];?>" class="form-control" <?php echo $required ?>>
+				<?php
+					foreach ($options as $key => $value) {
+				?>
+				<option value="<?php echo $key + 1;?>"><?php echo $value;?></option>
+				<?php } ?>
+		</select>
+	<?php } else { if ($tsx['field']['type'] == 'textbox') { ?>
+		<input id="fid_<?php echo $tsx['field']['id'];?>" name="fid_<?php echo $tsx['field']['id'];?>" type="text" class="form-control input-md" <?php echo $required ?>>
+	<?php } else if ($tsx['field']['type'] == 'textarea') {?>
+		<textarea class="form-control" id="fid_<?php echo $tsx['field']['id'];?>" name="fid_<?php echo $tsx['field']['id'];?>" rows="3" <?php echo $required ?>></textarea>
+	<?php } } ?>
+	<span class="help-block"><?php echo $tsx['field']['description'];?></span>
+</div>

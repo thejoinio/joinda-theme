@@ -1,0 +1,13 @@
+<?php
+$online = '';
+$time     = time() - 60;
+if ($tsx['user-list']['lastseen'] > $time) {
+	$online = 'online';
+}
+?>
+<li>
+	<a class="user" href="<?php echo $tsx['user-list']['url'];?>" data-ajax="?link1=timeline&u=<?php echo $tsx['user-list']['username'];?>" title="<?php echo $tsx['user-list']['name'];?>">
+		<img alt="<?php echo $tsx['user-list']['name'];?>" src="<?php echo $tsx['user-list']['avatar'];?>" />
+		<span><?php echo $tsx['user-list']['name'];?></span>
+	</a>
+</li> 

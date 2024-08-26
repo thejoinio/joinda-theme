@@ -1,0 +1,17 @@
+<div class="col-md-4" data-rm-blog="<?php echo $tsx['blog']['id']; ?>">
+	<div class="joinda_main_blogs" id="<?php echo $tsx['blog']['id']; ?>">
+		<div class="avatar">
+			<img src="<?php echo $tsx['blog']['thumbnail']; ?>" alt="<?php echo $tsx['blog']['title']; ?>">
+			<div class="joinda_main_blogs_info">
+				<a class="postCategory" href="<?php echo $tsx['blog']['category_link']; ?>" data-ajax="?link1=blog-category&id=<?php echo $tsx['blog']['category']; ?>"><?php echo $tsx['blog_categories'][$tsx['blog']['category']]; ?></a>
+				<h2 class="art-title"><a href="<?php echo $tsx['blog']['url']; ?>"><?php echo $tsx['blog']['title']; ?></a></h2>
+				<div class="postMeta--author-text">
+					<a href="<?php echo $tsx['blog']['author']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $tsx['blog']['author']['username']; ?>"><?php echo $tsx['blog']['author']['name']; ?></a>
+					<span class="middot">·</span>
+					<time><?php echo date("d M Y",$tsx['blog']['posted']); ?></time>
+				</div>
+				<a href="<?php echo $tsx['blog']['url']; ?>" class="btn btn-mat"><?php echo $tsx['lang']['read_more'] ?></a>
+			</div>
+		</div>
+	</div>
+</div>

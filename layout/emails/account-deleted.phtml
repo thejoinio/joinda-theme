@@ -1,0 +1,9 @@
+<?php 
+$data = $db->where('name','account_deleted')->getOne(T_HTML_EMAILS);
+$html = $data->value;
+$replaces = array('name' => $tsx['deletedUserData']['username'],
+                 'SITE_URL' => $tsx['config']['site_url'],
+                 'SITE_NAME' => $tsx['config']['siteName']);
+$html = tsx_ReplaceText($html,$replaces);
+echo $html;
+?>

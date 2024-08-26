@@ -1,0 +1,14 @@
+<div class="col-md-3 col-sm-6" data-id="<?php echo $tsx['result']['id']; ?>" data-search-type="<?php echo $tsx['result']['type']; ?>">
+	<div class="joinda_content joinda_my_groups">
+		<div class="avatar">
+			<a href="<?php echo $tsx['result']['url']. $tsx['marker'];?>ref=se" data-ajax="?link1=timeline&u=<?php echo $tsx['result']['username']?>&ref=se">
+				<img src="<?php echo $tsx['result']['avatar'];?>" alt="<?php echo $tsx['result']['name']; ?> Profile Picture" />
+			</a>
+		</div>
+		<div class="joinda_my_groups_info">
+			<h3 class="page_title"><a href="<?php echo $tsx['result']['url']. $tsx['marker'];?>ref=se" data-ajax="?link1=timeline&u=<?php echo $tsx['result']['username']?>&ref=se"><?php echo $tsx['result']['name']; ?></a></h3>
+			<p><?php echo tsx_CountGroupMembers($tsx['result']['id']);?> <?php echo $tsx['lang']['members']; ?></p>
+			<?php echo tsx_GetJoinButton($tsx['result']['id']);?>
+		</div>
+	</div>
+</div>

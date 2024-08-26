@@ -1,0 +1,12 @@
+<?php 
+$data = $db->where('name','invite')->getOne(T_HTML_EMAILS);
+$html = $data->value;
+$replaces = array('USERNAME' => $tsx['user']['username'],
+                 'SITE_URL' => $tsx['config']['site_url'],
+                 'NAME' => $tsx['user']['name'],
+                 'URL' => $tsx['user']['url'],
+                 'SITE_NAME' => $tsx['config']['siteName'],
+                 'BACKGOUND_COLOR' => $tsx['config']['btn_background_color']);
+$html = tsx_ReplaceText($html,$replaces);
+echo $html;
+ ?>

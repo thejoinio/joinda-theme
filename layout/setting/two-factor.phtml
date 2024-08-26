@@ -1,0 +1,116 @@
+<div class="joinda_content settings-head">
+	<div class="infoz">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="background-color: #ddddf6;"><path fill="blue" d="M2,7V9H6V11H4A2,2 0 0,0 2,13V17H8V15H4V13H6A2,2 0 0,0 8,11V9C8,7.89 7.1,7 6,7H2M9,7V17H11V13H14V11H11V9H15V7H9M18,7A2,2 0 0,0 16,9V17H18V14H20V17H22V9A2,2 0 0,0 20,7H18M18,9H20V12H18V9Z"></path></svg>
+		<p style="color:blue;"><?php echo $tsx['lang']['ttsx_factor']; ?></p>
+	</div>
+</div>
+<div class="tsx_settings_page joinda_content">
+	<form class="form-horizontal setting-change-passtsxrd-form" method="post">
+		<div class="setting-passtsxrd-alert setting-update-alert"></div>
+        
+		<?php if ($tsx['config']['ttsx_factor_type'] == 'both' || $tsx['config']['ttsx_factor_type'] == 'phone') { ?>
+			<div class="joinda_form_fields">
+				<label for="phone_number"><?php echo $tsx['lang']['phone_number']; ?></label>  
+				<input name="phone_number" id="phone_number" type="text" class="form-control input-md" autocomplete="off" placeholder="+15417543010" value="<?php echo $tsx['setting']['phone_number']?>">
+			</div>
+		<?php } ?>
+		<div class="joinda_form_fields">
+			<label for="ttsx_factor"><?php echo $tsx['lang']['ttsx_factor']; ?></label>  
+			<select id="ttsx_factor_select" name="ttsx_factor" class="form-control">
+				<option value="enable" <?php echo ($tsx['setting']['ttsx_factor'] == '1')   ? 'selected' : '';?> ><?php echo $tsx['lang']['enable']; ?></option>
+				<option value="disable" <?php echo ($tsx['setting']['ttsx_factor'] == '0')   ? 'selected' : '';?> ><?php echo $tsx['lang']['disable']; ?></option>
+			</select>
+			<span class="help-block"><?php echo $tsx['lang']['ttsx_factor_description'] ?></small>
+		</div>
+		<input type="hidden" name="" id="ttsx_factor_value">
+		
+		<div class="text-center">
+			<button type="button" class="btn btn-main btn-mat btn-mat-raised add_joinda_loader" id="submit_ttsx_factor_btn"><?php echo $tsx['lang']['save']; ?></button>
+		</div>
+		
+         <input type="hidden" name="user_id" value="<?php echo $tsx['setting']['user_id'];?>">
+         <input type="hidden" name="hash_id" value="<?php echo tsx_CreateSession();?>">
+   </form>
+</div>
+<script type="text/javascript">
+  
+  $(document).on('click', '#submit_ttsx_factor_btn', function(event) {
+    $.ajax({
+    url: tsx_Ajax_Requests_File() + '?f=update_ttsx_factor&s='+$('#ttsx_factor_select').val(),
+    type: 'POST',
+    data:$('form.setting-change-passtsxrd-form').serialize(),
+    beforeSend: function() {
+      $('.tsx_settings_page').find('.add_joinda_loader').addClass('btn-loading');
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        $('.setting-passtsxrd-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('.alert-success').fadeIn('fast', function() {
+          $(this).delay(2000).slideUp(500, function() {
+              $(this).remove();
+              if ($('#ttsx_factor_select').val() == 'enable') {
+                $('#verify_code').modal('show');
+              }
+          });
+        });
+      } else if (data.status == 400) {
+        $('.setting-passtsxrd-alert').html('<div class="alert alert-danger">' + data.message + '</div>');
+        $('.alert-danger').fadeIn(300);
+      }
+      $('.tsx_settings_page').find('.add_joinda_loader').removeClass('btn-loading');
+    }
+  });
+    
+  });
+$(function() {
+
+  $('form.confirmation_code_form').ajaxForm({
+    url: tsx_Ajax_Requests_File() + '?f=update_ttsx_factor&s=verify',
+    beforeSend: function() {
+      $('#confirmation_code_form_btn').text('<?php echo($tsx['lang']['please_wait']) ?>');
+    },
+    success: function(data) {
+      if (data.status == 200) {
+        $('#confirmation_code_form_alert').html('<div class="alert alert-success">' + data.message + '</div>');
+        $('#confirmation_code_form_alert').fadeIn('fast', function() {
+          $(this).delay(2500).slideUp(500, function() {
+              $(this).remove();
+              $('#verify_code').modal('hide');
+              location.reload();
+          });
+        });
+      } else if (data.status == 400) {
+        $('#confirmation_code_form_alert').html('<div class="alert alert-danger">' + data.message + '</div>');
+        $('.alert-danger').fadeIn(300);
+      }
+      $('#confirmation_code_form_btn').text('<?php echo($tsx['lang']['send']) ?>');
+    }
+  });
+
+
+
+});
+// $(function() {
+//   $('form.setting-change-passtsxrd-form').ajaxForm({
+//     url: tsx_Ajax_Requests_File() + '?f=update_ttsx_factor',
+//     beforeSend: function() {
+//       $('.tsx_settings_page').find('.last-sett-btn .ball-pulse').fadeIn(100);
+//     },
+//     success: function(data) {
+//       if (data.status == 200) {
+//         $('.setting-passtsxrd-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+//         $('.alert-success').fadeIn('fast', function() {
+//           $(this).delay(2500).slideUp(500, function() {
+//               $(this).remove();
+//           });
+//         });
+//       } else if (data.errors) {
+//         var errors = data.errors.join("<br>");
+//         $('.setting-passtsxrd-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+//         $('.alert-danger').fadeIn(300);
+//       }
+//       $('.tsx_settings_page').find('.last-sett-btn .ball-pulse').fadeOut(100);
+//     }
+//   });
+// });
+</script>

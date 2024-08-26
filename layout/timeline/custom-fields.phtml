@@ -1,0 +1,11 @@
+<li class="list-group-item">
+    <?php 
+    echo '<b>' . $tsx['field']['name'] . ':</b> ';
+    if ($tsx['field']['select_type'] == 'yes') {
+      	$options = @explode(',', $tsx['field']['type']); 
+      	echo $options[$tsx['user_profile']['fields'][$tsx['field']['fid']] - 1];
+    } else {
+      	echo $tsx['user_profile']['fields'][$tsx['field']['fid']];
+    }
+    ?>
+</li>

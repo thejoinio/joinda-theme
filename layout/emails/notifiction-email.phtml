@@ -1,0 +1,87 @@
+<?php
+$tsx['emailNotification']['type_text'] = '';
+if ($tsx['emailNotification']['type'] == "reaction") {
+    if( $tsx['emailNotification']['text'] == "post" ){
+        $tsx['emailNotification']['type_text'] .= $tsx['lang']['reacted_to_your_post'];
+    }else if( $tsx['emailNotification']['text'] == "comment" ){
+        $tsx['emailNotification']['type_text'] .= $tsx['lang']['reacted_to_your_comment'];
+    }else if( $tsx['emailNotification']['text'] == "replay" ){
+        $tsx['emailNotification']['type_text'] .= $tsx['lang']['reacted_to_your_replay'];
+    }
+}
+    
+if ($tsx['emailNotification']['type'] == "following") {
+    $tsx['emailNotification']['type_text'] .= 'is following you';
+}
+if ($tsx['emailNotification']['type'] == "visited_profile") {
+    $tsx['emailNotification']['type_text'] .= 'visited your profile';
+}
+if ($tsx['emailNotification']['type'] == 'comment_mention') {
+    $tsx['emailNotification']['type_text'] .= 'mentioned you on a comment';
+}
+if ($tsx['emailNotification']['type'] == 'post_mention') {
+    $tsx['emailNotification']['type_text'] .= 'mentioned you on a post';
+}
+if ($tsx['emailNotification']['type'] == 'liked_post') {
+    $tsx['emailNotification']['type_text'] .= 'liked your post';
+}
+if ($tsx['emailNotification']['type'] == 'tsxndered_post') {
+    $lang_type = ($tsx['config']['second_post_button'] == 'tsxnder') ? 'tsxndered your post' : 'disliked your post';
+    $tsx['emailNotification']['type_text'] .= $lang_type;
+}
+if ($tsx['emailNotification']['type'] == 'share_post' || $tsx['emailNotification']['type'] == 'shared_your_post') {
+    $tsx['emailNotification']['type_text'] .= 'shared your post';
+}
+if ($tsx['emailNotification']['type'] == 'shared_a_post_in_timeline') {
+    $tsx['emailNotification']['type_text'] .= 'shared a post in your timeline';
+}
+if ($tsx['emailNotification']['type'] == 'comment') {
+    $tsx['emailNotification']['type_text'] .= 'commented on your post';
+}
+if ($tsx['emailNotification']['type'] == 'liked_comment') {
+    $tsx['emailNotification']['type_text'] .= 'liked your comment "' . $tsx['emailNotification']['text'] . '"';
+}
+if ($tsx['emailNotification']['type'] == 'tsxndered_comment') {
+    $lang_type = ($tsx['config']['second_post_button'] == 'tsxnder') ? 'tsxndered your comment' : 'disliked your comment';
+    $tsx['emailNotification']['type_text'] .= $lang_type . ' "' . $tsx['emailNotification']['text'] . '"';
+}
+if ($tsx['emailNotification']['type'] == 'profile_wall_post') {
+    $tsx['emailNotification']['type_text'] .= 'posted on your timeline';
+}
+if ($tsx['emailNotification']['type'] == 'accepted_request') {
+    $request_type = ($tsx['config']['connectivitySystem'] == 1) ? 'friend' : 'follow';
+    $tsx['emailNotification']['type_text'] .= "accepted your {$request_type} request.";
+}
+if ($tsx['emailNotification']['type'] == 'liked_page') {
+    $page = tsx_PageData($tsx['emailNotification']['page_id']);
+    $tsx['emailNotification']['type_text'] = 'liked your page (' . $page['name'] . ')';
+}
+if ($tsx['emailNotification']['type'] == 'joined_group') {
+    $group = tsx_GroupData($tsx['emailNotification']['group_id']);
+    $tsx['emailNotification']['type_text'] = 'joined your group (' . $group['name'] . ')';
+}
+
+if ($tsx['emailNotification']['type'] == 'sent_message') {
+  $tsx['emailNotification']['type_text'] = 'Sent you a new message';
+}
+$text = '';
+if (!empty($tsx['emailNotification']['post_data']['text'])) {
+  $text = $tsx['emailNotification']['post_data'][ 'text'];
+}
+
+else if(!empty($tsx['emailNotification']['msg_text'])){
+  $text = "\"" . $tsx['emailNotification']['msg_text'] . "\"";
+}
+
+$data = $db->where('name','notification')->getOne(T_HTML_EMAILS);
+$html = $data->value;
+$replaces = array('SITE_NAME' => $tsx['config']['siteName'],
+                  'NOTIFY_URL' => $tsx['emailNotification']['notifier']['url'],
+                  'NOTIFY_AVATAR' => $tsx['emailNotification']['notifier']['avatar'],
+                  'NOTIFY_NAME' => $tsx['emailNotification']['notifier']['name'],
+                  'TEXT_TYPE' => $tsx['emailNotification']['type_text'],
+                  'TEXT' => $text,
+                  'URL' => $tsx['emailNotification']['url']);
+$html = tsx_ReplaceText($html,$replaces);
+echo $html;
+?>

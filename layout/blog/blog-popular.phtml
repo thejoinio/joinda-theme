@@ -1,0 +1,10 @@
+<li class="blog popular-articles">
+	<a class="article-thumbnail <?php echo tsx_RightToLeft('pull-left');?>" href="<?php echo $tsx['blog-style']['url'] ?>">
+		<img width="100" height="100" src="<?php echo $tsx['blog-style']['thumbnail'];?>" alt="Article Picture">
+	</a>
+	<a class="article-title" href="<?php echo $tsx['blog-style']['url'] ?>"><?php echo $tsx['blog-style']['title'] ?></a>
+	<div class="article-info">
+		<span><?php echo $tsx['lang']['by'] ?></span>
+		<a href="<?php echo $tsx['blog-style']['author']['url']; ?>" data-ajax="?link1=timeline&u=<?php echo $tsx['blog-style']['author']['username']; ?>"><?php echo $tsx['blog-style']['author']['name']; ?></a>
+	</div>
+</li>

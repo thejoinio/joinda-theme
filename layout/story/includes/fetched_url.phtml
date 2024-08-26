@@ -1,0 +1,43 @@
+<?php if(!empty($tsx['story']['postLink']) && empty($tsx['story']['postVine']) && empty($tsx['story']['postPlaytube']) && empty($tsx['story']['postDeepsound']) && empty($tsx['story']['postSoundCloud']) && empty($tsx['story']['postYoutube']) && empty($tsx['story']['postFile'])) { ?>
+	<?php if (!preg_match("/(http|https):\/\/twitter\.com\/[a-zA-Z0-9_]+\/status\/[0-9]+/", $tsx['story']['postLink']) && !preg_match("/(http|https):\/\/www.tiktok\.com\/(.*)\/video\/(.*)+/", $tsx['story']['postLink']) && !preg_match("/^(http:\/\/|https:\/\/|www\.).*(\.mp4)$/", $tsx['story']['postLink'])) { ?>
+	<div class="post-fetched-url tsx_post_fetch_link" id="fullsizeimg">
+		<a href="<?php echo $tsx['story']['postLink'];?>" target="_blank" rel="nofollow">
+			<?php if (!empty($tsx['story']['postLinkImage'])) {?>
+				<div class="post-fetched-url-con">
+					<img src="<?php echo $tsx['story']['postLinkImage'];?>" class="<?php echo tsx_RightToLeft('pull-left');?>" alt="<?php echo $tsx['story']['postLinkTitle'];?>"/>
+					<div class="url">
+						<?php 
+							$parse = parse_url($tsx['story']['postLink']);
+							echo $parse['host'];
+						?>
+					</div>
+				</div>
+			<?php } ?>
+			<div class="fetched-url-text">
+				<h4><?php echo $tsx['story']['postLinkTitle'];?></h4>
+				<div class="description"><?php echo $tsx['story']['postLinkContent'];?></div>
+			</div>
+			<div class="clear"></div>
+		</a>
+	</div>
+	<?php }
+	elseif (preg_match("/(http|https):\/\/www.tiktok\.com\/(.*)\/video\/(.*)+/", $tsx['story']['postLink'])) {
+        	echo html_entity_decode($tsx['story']['postLinkContent']);
+        }elseif (preg_match("/^(http:\/\/|https:\/\/|www\.).*(\.mp4)$/", $tsx['story']['postLink'])) {
+         ?>
+         <div class="post-file tsx_shared_doc_file" id="fullsizeimg">
+            <?php
+               $tsx['media'] = array('storyId' => $tsx['story']['id'],
+                                    'filename' => $tsx['story']['postLink'],
+                                    'video_thumb' => '');
+               $tsx['tsx_ad_id'] = '';
+               $tsx['rvad_con'] = '';
+               echo tsx_LoadPage('players/video');
+               ?>
+         </div>
+         <?php
+        }
+	else{ ?>
+   <?php echo html_entity_decode($tsx['story']['postLinkContent']);?>
+ <?php } ?>
+<?php } ?>

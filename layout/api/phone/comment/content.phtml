@@ -1,0 +1,133 @@
+<?php $replies = tsx_CountCommentReplies($tsx['comment']['id']);?>
+<div class="comment comment-container" id="comment_<?php echo $tsx['comment']['id'];?>" data-comment-id ="<?php echo $tsx['comment']['id'];?>">
+   <img class="avatar <?php echo tsx_RightToLeft('pull-left'); ?>" src="<?php echo $tsx['comment']['publisher']['avatar']?>" alt="avatar" onclick="InjectAPI('{&quot;profile_id&quot; : &quot;<?php echo $tsx['comment']['publisher']['id']?>&quot;, &quot;type&quot;:&quot;<?php echo $tsx['comment']['publisher']['type']?>&quot;}');">
+   <div class="comment-body">
+      <div class="comment-heading">
+         <span onclick="InjectAPI('{&quot;profile_id&quot; : &quot;<?php echo $tsx['comment']['publisher']['id']?>&quot;, &quot;type&quot;:&quot;<?php echo $tsx['comment']['publisher']['type']?>&quot;}');">
+            <h4 class="user">
+            <?php echo $tsx['comment']['publisher']['name']?>
+            </h4>
+            <?php  if($tsx['comment']['publisher']['verified'] == 1) {   ?>
+            <span class="verified-color" data-toggle="tooltip" title="<?php echo $tsx['lang']['verified_user'];?>"><i class="fa fa-check-circle"></i></span>
+            <?php } ?>
+         </span>
+         <div class="<?php echo tsx_RightToLeft('pull-right');?> comment-options">
+            <?php if ($tsx['comment']['onwer'] === true) { ?>
+            <span class="pointer comment-icons" id="editComment" onclick="tsx_OpenCommentEditBox(<?php echo $tsx['comment']['id']?>);">
+               <i class="fa fa-pencil progress-icon" data-icon="pencil"></i>
+            </span>
+            <?php } ?>
+            <?php if ($tsx['comment']['post_onwer'] === true|| $tsx['comment']['onwer'] === true) {?>
+            <span class="pointer" id="deleteComment" onclick="tsx_DeleteComment(<?php echo $tsx['comment']['id']?>);">
+               <i class="fa fa-trash-o progress-icon" data-icon="trash-o"></i>
+            </span>
+            <?php } ?>
+         </div>
+         <span class="time ajax-time" title="<?php echo date('c',$tsx['comment']['time']);?>"><?php echo $tsx['comment']['time']?></span>
+         <div class="comment-text"><?php echo $tsx['comment']['text']?></div>
+         <div class="comment-image">
+            <?php if (!empty($tsx['comment']['c_file'])): ?>
+               <img onclick="InjectAPI('{&quot;image_url&quot; : &quot;<?php echo tsx_GetMedia($tsx['comment']['c_file']);?>&quot;, &quot;type&quot;:&quot;lighbox&quot;}');" src="" alt="Comment image">
+            <?php endif ?>
+         </div>
+         <div class="clear"></div>
+      </div>
+      <?php if ($tsx['config']['second_post_button'] == 'reaction') { ?>
+            <!-- reaction -->
+
+            <div class="like-stat  stat-item post-like-status" style="float: left;margin: -2px 10px 0px 0px;">
+              <span class="like-emo comment-reactions-icons-<?php echo $tsx['comment']['id']; ?>">
+              <?php echo tsx_GetPostReactions($tsx['comment']['id'],"comment");?>
+              </span>
+              <!-- <span class="like-details">Arkaprava Majumder and 1k others</span> -->
+            </div>
+
+            <div class="tsx-reaction stat-item" style="max-width: 100%;padding: inherit;float: left;font-size: 13px;margin-top: 3px;position: relative;">
+                <span class="like-btn" >
+                    <?php
+                    if (tsx_IsReacted($tsx['comment']['id'], $tsx['story']['user_id'],"comment") === true) {    
+                    echo '<span class="status-reaction-'.$tsx['comment']['id'].' active-like"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg> <span class="c_likes-'.$tsx['comment']['id'].'">' . $tsx['lang']['liked'] . '</span></span>';   
+                    } else {   
+                    echo '<span class="status-reaction-'.$tsx['comment']['id'].'"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg> <span class="c_likes-'.$tsx['comment']['id'].'">' . $tsx['lang']['like'] . '</span></span>';   
+                    }    
+                    ?>
+                    <ul class="reactions-box">
+                        <li class="reaction reaction-like" data-reaction="Like" onclick="tsx_RegisterCommentReaction(<?php echo $tsx['comment']['id']; ?>,'Like');"></li>
+                        <li class="reaction reaction-love" data-reaction="Love" onclick="tsx_RegisterCommentReaction(<?php echo $tsx['comment']['id']; ?>,'Love');"></li>
+                        <li class="reaction reaction-haha" data-reaction="HaHa" onclick="tsx_RegisterCommentReaction(<?php echo $tsx['comment']['id']; ?>,'HaHa');"></li>
+                        <li class="reaction reaction-joinda" data-reaction="joinda" onclick="tsx_RegisterCommentReaction(<?php echo $tsx['comment']['id']; ?>,'joinda');"></li>
+                        <li class="reaction reaction-sad" data-reaction="Sad" onclick="tsx_RegisterCommentReaction(<?php echo $tsx['comment']['id']; ?>,'Sad');"></li>
+                        <li class="reaction reaction-angry" data-reaction="Angry" onclick="tsx_RegisterCommentReaction(<?php echo $tsx['comment']['id']; ?>,'Angry');"></li>
+                    </ul>
+                </span>
+            </div>
+        <?php } ?>
+      <span class="comment-options">
+        <?php if ($tsx['config']['second_post_button'] == 'reaction') { ?>
+
+        <?php }else{ ?>
+         <span class="comment-icons">
+            <span class="pointer" id="LikeComment" onclick="tsx_RegisterCommentLike(<?php echo $tsx['comment']['id']; ?>);">
+               <?php if($tsx['comment']['is_comment_liked'] !== true) { ?>
+               <i class="fa fa-thumbs-up progress-icon" data-icon="thumbs-up"></i>
+               <?php } else { ?>
+               <i class="fa fa-thumbs-up progress-icon active-like" data-icon="thumbs-up"></i>
+               <?php } ?>
+            </span>
+            <span id="comment-likes">
+               <?php echo $tsx['comment']['comment_likes'];?>
+            </span> ·
+         </span>
+         <span class="pointer" id="tsxnderComment" onclick="tsx_RegisterCommenttsxnder(<?php echo $tsx['comment']['id']; ?>);">
+            <?php if($tsx['comment']['is_comment_tsxndered'] !== true) { ?>
+            <i class="fa fa-<?php echo $tsx['second_post_button_icon'];?> progress-icon" data-icon="<?php echo $tsx['second_post_button_icon'];?>"></i>
+            <?php } else {  ?>
+            <i class="fa fa-<?php echo $tsx['second_post_button_icon'];?> progress-icon active-tsxnder" data-icon="<?php echo $tsx['second_post_button_icon'];?>"></i>
+            <?php } ?>
+         </span>
+         <span id="comment-tsxnders">
+            <?php echo $tsx['comment']['comment_tsxnders'];?>
+         </span>
+         <?php } ?>
+         
+         <?php if ($replies == 0) { ?>
+         ·
+         <span class="pointer" id="ReplyComment" onclick="tsx_OpenReplyBox(<?php echo $tsx['comment']['id']; ?>);">
+            <i class="fa fa-comment progress-icon" data-icon="comment"></i>
+         </span>
+         <span id="comment-replies">
+            <?php echo $replies;?>
+         </span>
+         <?php } ?>
+      </span>
+      <div class="comment-edit">
+         <textarea onkeyup="textAreaAdjust(this, 26)" class="edit-box form-control" onkeydown="tsx_EditComment(this.value,<?php echo $tsx['comment']['id']?>, event)" placeholder="Edit Comment" dir="auto"><?php echo $tsx['comment']['Orginaltext']?></textarea>
+      </div>
+      <div class="comment-replies">
+         <div class="comment-replies-text">
+            <div class="reply-container"></div>
+         </div>
+         <?php if ($replies > 0) { ?>
+         <div class="view-more-replies" onclick="tsx_ViewMoreReplies(<?php echo $tsx['comment']['id'];?>);">
+            <i class="fa fa-share fa-fw"></i> <?php echo $replies;?> <?php echo $tsx['lang']['replies']?>
+         </div>
+         <?php } ?>
+         <div class="comment-reply">
+            <textarea onkeyup="textAreaAdjust(this, 26)" class="reply-box form-control textarea" onkeydown="tsx_RegisterReply(this.value,<?php echo $tsx['comment']['id']; ?>,<?php echo $tsx['story']['publisher']['user_id']; ?>, event, <?php echo (!empty($tsx['story']['publisher']['page_id'])) ? $tsx['story']['publisher']['page_id'] : '0'; ?>)" placeholder="<?php echo $tsx['lang']['reply_to_comment'];?>" dir="auto"></textarea>
+            <div id="hidden_inputbox_comment_reply"></div>
+         </div>
+      </div>
+   </div>
+   <?php echo tsx_LoadPage('modals/delete-comment');?>
+   <script>
+   $(function () {
+      ReadMoreText("#comment_<?php echo $tsx['comment']['id'];?> .comment-text");
+   $("#comment_<?php echo $tsx['comment']['id']; ?> .comment-reply input").triggeredAutocomplete({
+   hidden: '#hidden_inputbox_comment_reply',
+   source: tsx_Ajax_Requests_File() + "?f=mention",
+   trigger: "@"
+   });
+   
+   });
+   </script>
+</div>

@@ -1,0 +1,21 @@
+<?php 
+if (empty($tsx['story']['color_id']) || (!empty($tsx['story']['color_id']) && empty($tsx['post_colors'][$tsx['story']['color_id']]))) { ?>
+<p dir="auto">
+<span data-translate-text="<?php echo $tsx['story']['id']; ?>"> <?php echo $tsx['story']['postText']; ?></span>
+<?php if (!empty($tsx['story']['postFeeling']) && $extra_exists == 1) { ?>
+<span class="feeling-text"> — <i class="twa-lg twa twa-<?php echo $tsx['story']['postFeelingIcon'];?>"></i> <?php echo $tsx['lang']['feeling'];?> <?php echo $tsx['lang'][$tsx['story']['postFeeling']];?></span>
+<?php } ?>
+<?php if (!empty($tsx['story']['postTraveling']) && $extra_exists == 1) { ?>
+<span class="feeling-text"> — <i class="fa fa-plane"></i> <?php echo $tsx['lang']['traveling'];?><?php echo $tsx['story']['postTraveling'];?></span>
+<?php } ?>
+<?php if (!empty($tsx['story']['postWatching']) && $extra_exists == 1) { ?>
+<span class="feeling-text"> — <i class="fa fa-eye"></i> <?php echo $tsx['lang']['watching'];?> <?php echo $tsx['story']['postWatching'];?></span>
+<?php } ?>
+<?php if (!empty($tsx['story']['postPlaying']) && $extra_exists == 1) { ?>
+<span class="feeling-text"> — <i class="fa fa-gamepad"></i> <?php echo $tsx['lang']['playing'];?> <?php echo $tsx['story']['postPlaying'];?></span>
+<?php } ?>
+<?php if (!empty($tsx['story']['postListening']) && $extra_exists == 1) { ?>
+<span class="feeling-text"> — <i class="fa fa-headphones"></i> <?php echo $tsx['lang']['listening'];?> <?php echo $tsx['story']['postListening'];?></span>
+<?php } ?>
+</p>
+<?php } ?>

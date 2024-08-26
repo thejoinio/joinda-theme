@@ -1,0 +1,54 @@
+<?php
+if ($tsx['loggedin'] == true) {
+   header("Location: " . $tsx['config']['site_url']);
+   exit();
+} else {
+  if (isset($_GET['link2'])) {
+   if ($_GET['link2'] == 'success') {
+?>
+<div class="text-center">
+   <h2><?php echo $tsx['lang']['your_account_activated'];?></h2>
+   <div class="account-activate-icon"><i class="fa fa-check-circle"></i></div>
+   <h4><?php echo str_replace('{login}', $tsx['lang']['login'], $tsx['lang']['free_to_login']);?></h4>
+</div>
+<?php
+    } else {
+      header("Location: " . tsx_SeoLink('index.php?link1=welcome'));
+      exit();
+    }
+  } else if (isset($_GET['email'], $_GET['code']) === true) {
+      $email = $_GET['email'];
+      $code  = $_GET['code'];
+      if (tsx_EmailExists($email) === false) {
+        header("Location: " . tsx_SeoLink('index.php?link1=welcome'));
+        exit();
+      } else if (tsx_ActivateUser($email, $code) === false) {   
+        header("Location: " . tsx_SeoLink('index.php?link1=welcome'));   
+        exit();   
+      } else {
+        $session = tsx_CreateLoginSession(tsx_UserIdFromEmail($email));
+        $_SESSION['user_id'] = $session;
+        setcookie(
+            "user_id",
+            $session,
+            time() + (10 * 365 * 24 * 60 * 60)
+        );
+        setcookie("user_id", $session, time() + (10 * 365 * 24 * 60 * 60));
+        if (!empty($tsx['config']['auto_friend_users'])) {
+            $autoFollow = tsx_AutoFollow(tsx_UserIdFromEmail($email));
+        }
+        if (!empty($tsx['config']['auto_page_like'])) {
+            tsx_AutoPageLike(tsx_UserIdFromEmail($email));
+        }
+        if (!empty($tsx['config']['auto_group_join'])) {
+            tsx_AutoGroupJoin(tsx_UserIdFromEmail($email));
+        }
+        header("Location: " . tsx_SeoLink('index.php?link1=start-up'));
+        exit();
+      }
+  } else {
+    header("Location: " . tsx_SeoLink('index.php?link1=welcome'));
+    exit();
+  }
+}
+?>

@@ -1,0 +1,34 @@
+<tr class="forum-mbr-list" id="<?php echo $tsx['member']['id']; ?>">
+
+    <td>
+        <p>
+            <b>
+                <a href="/<?php echo $tsx['member']['username'] ?>/"
+                   data-ajax="?link1=timeline&u=<?php echo $tsx['member']['username'] ?>">
+                <?php echo $tsx['member']['username'] ?>
+                    
+                </a>
+            </b>
+        </p>
+        <p>
+            <?php if ($tsx['member']['admin'] == 1): ?>
+                <?php echo $tsx['lang']['site_admin']; ?>
+            <?php else: ?>
+                <?php echo $tsx['lang']['registered']; ?> 
+            <?php endif; ?>
+        </p>
+    </td>
+    <td>
+        <span><?php echo tsx_Time_Elapsed_String($tsx['member']['joined']) ?></span>
+    </td>
+    <td>
+        <span><?php echo tsx_Time_Elapsed_String($tsx['member']['lastseen']) ?></span>
+        
+    </td>
+
+
+    <td><?php echo($tsx['member']['forum_posts']) ?></td>
+    <td>
+          <span><?php echo($tsx['member']['referrer']) ?></span>
+    </td>
+</tr>

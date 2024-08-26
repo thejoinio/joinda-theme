@@ -1,0 +1,22 @@
+<div class="col-md-6" data-rm-blog="<?php echo $tsx['blog']['id']; ?>">
+	<div class="view-blog joinda_main_blogs" id="<?php echo $tsx['blog']['id']; ?>">
+		<div class="avatar">
+			<img src="<?php echo $tsx['blog']['thumbnail']; ?>" alt="<?php echo $tsx['blog']['title']; ?>">
+			<div class="joinda_main_blogs_info">
+				<a class="postCategory" href="<?php echo $tsx['blog']['category_link']; ?>" data-ajax="?link1=blog-category&id=<?php echo $tsx['blog']['category']; ?>"><?php echo $tsx['blog_categories'][$tsx['blog']['category']]; ?></a>
+				<h2 class="art-title"><a href="<?php echo $tsx['blog']['url']; ?>"><?php echo $tsx['blog']['title']; ?></a></h2>
+				<div class="postMeta--author-text">
+					<span><?php echo $tsx['blog']['view']; ?> <?php echo $tsx['lang']['views'] ?></span>
+					<span class="middot">·</span>
+					<time><?php echo date("d M Y",$tsx['blog']['posted']); ?></time>
+				</div>
+				<?php if ($tsx['blog']['is_post_admin']):?>
+					<div class="joinda_main_blogs_btns">
+						<a href="<?php echo tsx_SeoLink('index.php?link1=edit-blog&id=' . $tsx['blog']['id']) ?>" class="btn btn-mat" id="<?php echo $tsx['blog']['id'];?>"><?php echo $tsx['lang']['edit']; ?></a>
+						<a class="btn btn-mat delete-blog" id="<?php echo $tsx['blog']['id'];?>"><?php echo $tsx['lang']['delete'] ?></a>
+					</div>
+				<?php endif;?>
+			</div>
+		</div>
+	</div>
+</div>
