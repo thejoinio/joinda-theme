@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joinda - Community</title>
+    <!-- <link rel="stylesheet" href="./output.css" /> -->
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bodyText: "#6B7280",
+              primaryBg: "#04141D",
+              secondaryGrey: "#778692",
+              secondary: "#8AE5CF",
+              footerBg: "#030E14",
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Scrollbar track */
+      ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        /* Scrollbar thumb */
+        ::-webkit-scrollbar-thumb {
+          background-color: #8AE5CF;
+          border-radius: 10px;
+        }
+
+        /* Scrollbar thumb hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background-color: #8AE5CF50;
+        }
+
+        /* Scrollbar track */
+        ::-webkit-scrollbar-track {
+          background-color: #04141D;
+        }
+      .left-container::before {
+          content: '';
+          top: 0;
+          left: 0;
+          background: url('<?php echo $wo['config']['theme_url'];?>/img/vector-top.png');
+          background-position: bottom right;
+          position: absolute;
+          width: 120px;
+          height: 215px;
+      }
+
+      .left-container::after {
+          content: '';
+          bottom: 0;
+          right: 0;
+          background: url('<?php echo $wo['config']['theme_url'];?>/img/vector-bottom.png');
+          position: absolute;
+          width: 136px;
+          height: 243px;
+      }
+
+      #modalTitle {
+          background: linear-gradient(90deg, #C8C8C8 4.29%, #878787 97.5%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-fill-color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="bg-primaryBg min-h-[calc(100vh_-_60px)] flex">
+      <div class="w-full md:w-1/2 left-container relative">
+        <div
+          class="mt-[60px] mb-8 mx-auto flex flex-col w-fit justify-center items-center"
+        >
+          <img
+            src="<?php echo $wo['config']['theme_url'];?>/img/joinda-logo.png"
+            class="w-[100px] h-auto"
+            alt="Joinda Logo"
+          />
+          <p class="text-bodyText text-center text-xl">
+            Step into the Joinda universe
+          </p>
+        </div>
+        <div class="w-full max-w-[528px] mx-auto px-4">
+          <button
+            class="bg-white text-[#333] text-md rounded-full flex items-center justify-center w-full h-16 gap-4 hover:opacity-80 active:opacity-100 transition duration-200 mb-4"
+          >
+            <img src="<?php echo $wo['config']['theme_url'];?>/img/google.png" alt="" />
+            Sign up with Google
+          </button>
+          <button
+            class="bg-white text-[#333]  text-md rounded-full flex items-center justify-center w-full h-16 gap-4 hover:opacity-80 active:opacity-100 transition duration-200 mb-7"
+          >
+            <img src="<?php echo $wo['config']['theme_url'];?>/img/apple.png" alt="" />
+            Sign up with Apple
+          </button>
+          <div class="flex w-full gap-6 items-center">
+            <div class="bg-bodyText/25 h-0.5 w-full"></div>
+            <div class="text-bodyText text-2xl">OR</div>
+            <div class="bg-bodyText/25 h-0.5 w-full"></div>
+          </div>
+          <button
+            id="openSignUpModal"
+            class="bg-secondaryGrey text-md text-white  rounded-full flex items-center justify-center w-full h-16 gap-4 hover:opacity-80 active:opacity-100 transition duration-200 my-7"
+          >
+            Create Account
+          </button>
+          <p class="text-bodyText text-[15px] text-center max-w-[35ch] mx-auto">
+            By creating an account you accept, Joinda
+            <span class="text-secondary font-semibold"> Terms of Use </span>
+            and
+            <span class="text-secondary font-semibold"> Privacy Policy </span>
+          </p>
+        </div>
+        <div class="mt-12 w-full max-w-[528px] mx-auto px-4">
+          <p class="text-white font-semibold text-center mb-8">
+            Already have an account?
+          </p>
+          <button
+            id="openLoginModal"
+            class="border border-secondaryGrey text-secondaryGrey text-md rounded-full flex items-center justify-center w-full h-16 gap-4 hover:opacity-80 active:opacity-100 transition duration-200 my-7"
+          >
+            Sign In
+          </button>
+        </div>
+        <div class="px-4 flex justify-center mt-[55px] mb-12 gap-[14px]">
+          <button
+            class="border border-[#778692] rounded-md h-[50px] flex items-center px-3 hover:scale-90 active:scale-100 transition duration-200"
+          >
+            <img src="<?php echo $wo['config']['theme_url'];?>/img/google-play.png" alt="Get it on Google Play" />
+          </button>
+          <button
+            class="border border-[#778692] rounded-md h-[50px] flex items-center px-[15px] hover:scale-90 active:scale-100 transition duration-200"
+          >
+            <img
+              src="<?php echo $wo['config']['theme_url'];?>/img/app-store.png"
+              alt="Download on the App Store"
+            />
+          </button>
+        </div>
+      </div>
+      <div
+        class="hidden-mobile md:flex justify-center items-center w-1/2 bg-[url('<?php echo $wo['config']['theme_url'];?>/img/background.png')] bg-center"
+      >
+        <img
+          src="<?php echo $wo['config']['theme_url'];?>/img/joinda-logo.png"
+          class="w-[240px] h-auto aspect-square"
+          alt="Joinda Logo"
+        />
+      </div>
+    </main>
+    <footer class="min-h-[60px] bg-footerBg flex justify-center items-center">
+      <div class="w-full max-w-[942px] mx-auto px-4 flex">
+        <ul
+          class="flex flex-wrap gap-x-10 text-bodyText items-center justify-center text-center py-4"
+        >
+          <li><a href="#" class="text-sm">Features</a></li>
+          <li><a href="#" class="text-sm">Help Center</a></li>
+          <li><a href="#" class="text-sm">Terms of Service</a></li>
+          <li><a href="#" class="text-sm">Privacy Policy</a></li>
+          <li><a href="#" class="text-sm">Cookie Policy</a></li>
+          <li><a href="#" class="text-sm">Accessibility</a></li>
+          <li><a href="#" class="text-sm">Careers</a></li>
+          <li><a href="#" class="text-sm">Settings</a></li>
+        </ul>
+      </div>
+    </footer>
+    <!-- Modal backdrop -->
+    <div
+      id="modalBackdrop"
+      class="fixed inset-0 bg-white/30 backdrop-blur-sm hidden items-center justify-center"
+    >
+      <!-- Modal content -->
+      <div
+        id="modalContent"
+        class="bg-primaryBg rounded-[50px] border border-[#050B28] w-[calc(100%_-_32px)] max-w-[800px] h-fit max-h-[80vh] overflow-y-hidden relative"
+      >
+      <div class="py-8 px-8 md:px-[100px] max-h-[80vh] overflow-y-auto ">
+
+          <button
+            id="closeModalLogin"
+            class="hidden absolute top-[37.5px] right-[37.5px] hover:scale-90 active:scale-100"
+          >
+            <img src="<?php echo $wo['config']['theme_url'];?>/img/x-icon.png" alt="X" />
+          </button>
+          <button
+            id="closeModalSignUp"
+            class="hidden absolute top-[37.5px] right-[37.5px] hover:scale-90 active:scale-100"
+          >
+            <img src="<?php echo $wo['config']['theme_url'];?>/img/x-icon.png" alt="X" />
+          </button>
+          <!-- Modal header -->
+          <img
+            src="<?php echo $wo['config']['theme_url'];?>/img/joinda-icon.png"
+            alt="Joinda Icon"
+            class="mx-auto"
+          />
+          <div>
+            <h2
+              id="modalTitle"
+              class="text-3xl font-semibold mb-2 leading-[50px]"
+            >
+              Login
+            </h2>
+            <div id="signUpIndicator" class="h-[5px] w-[206px] gap-1">
+              <div class="h-full w-[101px] rounded-sm bg-[#8AE5CF]"></div>
+              <div
+                id="step2"
+                class="h-full w-[101px] rounded-sm bg-[#8AE5CF]"
+              ></div>
+            </div>
+            <div
+              id="loginIndicator"
+              class="h-[5px] w-[101px] rounded-sm bg-[#8AE5CF]"
+            ></div>
+          </div>
+  
+          <!-- Login content -->
+          <div id="loginContent" class="hidden text-[#858585] pt-7 pb-9">
+            <form id="login" method="post"  class="flex flex-col">
+            <div class="alert alert-danger login_errors mb-3 text-xs text-red-300"></div>
+
+              <div class="flex flex-col gap-3">
+                <label for="username"> Username </label>
+                <input
+                  id="username" 
+                  name="username"  
+                  autocomplete="off" 
+                  autofocus
+                  placeholder="Enter your username"
+                  type="text"
+                  class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                />
+              </div>
+              <div class="flex flex-col gap-3 mt-10">
+                <label for="password"> Password </label>
+                <div class="relative">
+                  <input
+                    id="password"
+                    placeholder="Enter your password"
+                    type="password"
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                    name="password" autocomplete="off"
+                  />
+                  <button
+                    id="togglePassword1"
+                    type="button"
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition duration-200"
+                  >
+                    <img src="<?php echo $wo['config']['theme_url'];?>/img/eye.png" alt="Show" id="eyeIcon1">
+                  </button>
+                </div>
+              </div>
+                  <a href="<?php echo Wo_SeoLink('index.php?link1=forgot-password');?>"  class="mt-[30px] flex w-fit ml-auto text-[15px] main"><?php echo $wo['lang']['forget_password']?></a>
+              <div class="flex mt-2.5">
+                <input type="checkbox" class="bg-transparent mr-2" name="remember" id="remember">
+                <label for="remember">Remember this device</label>
+              </div>
+              <button type="submit" class="btn btn-main btn-mat add_wow_loader rounded-full h-16 md:h-[72px] w-[calc(100%_-_68px)] mx-auto border border-[#333] bg-secondaryGrey text-center text-white text-[22px] mt-16 md:mt-[113px] font-semibold hover:opacity-80 active:opacity-100 transition duration-200">Log In</button>
+
+              
+              
+              <p class="mt-[25px] text-[15px] text-center text-[#FCFCFC] mx-auto">Don&apos;t have an account? <button type="button" id="openAlreadySignUpModal" class="text-[#8AE5CF] font-semibold">Create Account</button></p>
+            </form>
+          </div>
+  
+          
+          <form id="register" method="post">
+            <!-- Stepper for Sign Up -->
+
+            <div class="alert text-red-200 mt-2 alert-danger register_errors"></div>
+            <?php if ($wo['config']['password_complexity_system'] == 1) { ?>
+						<ul class="list-unstyled helper-text">
+							<li class="length"><?php echo $wo['lang']['least_characters']; ?></li>
+							<li class="lowercase"><?php echo $wo['lang']['contain_lowercase']; ?></li>
+							<li class="uppercase"><?php echo $wo['lang']['contain_uppercase']; ?></li>
+							<li class="special"><?php echo $wo['lang']['number_special']; ?></li>
+						</ul>
+					<?php } ?>
+
+            <div id="signUpStep1" class="hidden text-[#858585]">
+              <div class="flex flex-col pt-7">
+              <div class="hidden  gap-3 mt-10">
+                  <label for="Firstname"> <?php echo $wo['lang']['first_name']?> </label>
+                  <input
+                    placeholder="Enter your preferred firstname"
+                    type="text"
+                    value="first_name"
+                    id="first_name" name="first_name" type="text" 
+                    autocomplete="off" 
+                    autofocus
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                  />
+              </div>
+
+              <div class="hidden  gap-3 mt-10">
+                  <label for="username"> Lastname </label>
+                  <input
+                    placeholder="Enter your preferred lastname"
+                    type="text"
+                    value="last_name"
+                    id="last_name" name="last_name" type="text" 
+                    autocomplete="off" 
+                    autofocus
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                  />
+              </div>
+
+                <div class="flex flex-col gap-3">
+                  <label for="email"> Email address </label>
+                  <input
+                    placeholder="Enter your email address"
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                    id="email" name="email" type="email"
+                  />
+                </div>
+
+                <div class="flex flex-col gap-3 mt-10">
+                  <label for="username"> Username </label>
+                  <input
+                    placeholder="Enter your preferred username"
+                    type="text"
+                    id="username" name="username" type="text" autocomplete="off" autofocus
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                  />
+                </div>
+                <div class="flex flex-col gap-3 mt-10">
+                  <label for="gender"> Gender </label>
+                  <select name="gender" id="gender"
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                  >
+
+                  <option value="0"><?php echo $wo['lang']['gender']?></option>
+						<?php foreach ($wo['genders'] as $key => $gender) { ?>
+							<option value="<?php echo($key) ?>"><?php echo $gender; ?></option>
+						<?php } ?>
+                    <!-- <option value="select" selected disabled>Select your Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="others">Others</option> -->
+                  </select>
+                </div>
+                <button id="nextStep" type="button" class="rounded-full mx-auto w-[calc(100%_-_68px)] h-16 md:h-[72px] border border-[#333] bg-secondaryGrey text-center text-white text-[22px] mt-11 font-semibold hover:opacity-80 active:opacity-100 transition duration-200">Next</button>
+                <p class="mt-[25px] text-[15px] text-center text-[#FCFCFC] mx-auto">Already have an account? <button type="button" id="openAlreadyLoginModal" class="text-[#8AE5CF] font-semibold">Log In</button></p>
+              </div>
+            </div>
+    
+            <div id="signUpStep2" class="hidden text-[#858585]">
+              <div class="flex flex-col gap-3 mt-7">
+                <label for="password"> Password </label>
+                <div class="relative">
+                  <input
+                    placeholder="Enter your password"
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                    id="register_password" name="password" type="password" 
+                  />
+                  <button
+                    id="togglePassword2"
+                    type="button"
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition duration-200"
+                  >
+                    <img src="<?php echo $wo['config']['theme_url'];?>/img/eye.png" alt="Show" id="eyeIcon2">
+                  </button>
+                </div>
+              </div>
+              <div class="flex flex-col gap-3 mt-10">
+                <label for="password">Confirm Password </label>
+                <div class="relative">
+                  <input
+                    placeholder="Confirm your password"
+                    type="password"
+                    class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
+                    id="confirm_password" name="confirm_password" type="password"
+                  />
+                  <button
+                    id="toggleConfirmPassword"
+                    type="button"
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 transition duration-200"
+                  >
+                    <img src="<?php echo $wo['config']['theme_url'];?>/img/eye.png" alt="Show" id="eyeIcon3">
+                  </button>
+                </div>
+              </div>
+              <div class="mt-10">
+                <!-- Password Criteria List -->
+                <ul class="flex flex-col md:flex-row gap-3">
+                  <li id="uppercaseCriteria" class="flex items-center justify-start md:justify-center">
+                    <img id="uppercaseIcon" class="mr-1" src="<?php echo $wo['config']['theme_url'];?>/img/tick-circle.png" alt="Uppercase"> 1 uppercase letter
+                  </li>
+                  <li id="specialCharacterCriteria" class="flex items-center justify-start md:justify-center">
+                    <img id="specialCharIcon" class="mr-1" src="<?php echo $wo['config']['theme_url'];?>/img/tick-circle.png" alt="Special Character"> 1 special character
+                  </li>
+                  <li id="lengthCriteria" class="flex items-center justify-start md:justify-center">
+                    <img id="lengthIcon" class="mr-1" src="<?php echo $wo['config']['theme_url'];?>/img/tick-circle.png" alt="Length"> 8 characters long
+                  </li>
+                </ul>
+                <p class="text-bodyText text-[15px] text-center max-w-[35ch] mx-auto mt-[50px]">
+                  By creating an account you accept, Joinda
+                  <span class="text-secondary font-semibold"> Terms of Use </span>
+                  and
+                  <span class="text-secondary font-semibold"> Privacy Policy </span>
+                </p>
+              </div>
+              <div class="flex flex-col-reverse sm:flex-row gap-4 md:gap-8 mt-8 mb-14 w-full md:w-[calc(100%_-_68px)] mx-auto">
+                <button type="button" id="previousStepButton" class="flex items-center justify-center rounded-full w-full h-16 md:h-[72px] border border-secondaryGrey bg-transparent text-center text-secondaryGrey text-[22px] font-semibold hover:opacity-80 active:opacity-100 transition duration-200">
+                  <img src="<?php echo $wo['config']['theme_url'];?>/img/arrow-right.png" alt="Right Arrow">  
+                  Go back
+                </button>
+                <button id="sign_submit"  type="submit" class="rounded-full w-full h-16 md:h-[72px] border border-[#333] bg-secondaryGrey text-center text-white text-[22px] font-semibold hover:opacity-80 active:opacity-100 transition duration-200">Create Account</button>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+      const openLoginModalButton = document.getElementById("openLoginModal");
+      const openSignUpModalButton = document.getElementById("openSignUpModal");
+      const openAlreadyLoginModalButton = document.getElementById("openAlreadyLoginModal");
+      const openAlreadySignUpModalButton = document.getElementById("openAlreadySignUpModal");
+      const step2 = document.getElementById("step2");
+      const modalBackdrop = document.getElementById("modalBackdrop");
+      const modalTitle = document.getElementById("modalTitle");
+      const signUpIndicator = document.getElementById("signUpIndicator");
+      const loginIndicator = document.getElementById("loginIndicator");
+      const loginContent = document.getElementById("loginContent");
+      const signUpStep1 = document.getElementById("signUpStep1");
+      const signUpStep2 = document.getElementById("signUpStep2");
+      const closeModalLogin = document.getElementById("closeModalLogin");
+      const closeModalSignUp = document.getElementById("closeModalSignUp");
+      const nextStepButton = document.getElementById("nextStep");
+      const previousStepButton = document.getElementById("previousStepButton");
+      const password = document.getElementById('password');
+      const toggleButton1 = document.getElementById('togglePassword1');
+      const register_password = document.getElementById('register_password');
+      const toggleButton2 = document.getElementById('togglePassword2');
+      const passwordInput3 = document.getElementById('confirm_password');
+      const toggleButton3 = document.getElementById('toggleConfirmPassword');
+      const eyeIcon1 = document.getElementById('eyeIcon1');
+      const eyeSlashIcon1 = document.getElementById('eyeSlashIcon1');
+      const eyeIcon2 = document.getElementById('eyeIcon2');
+      const eyeSlashIcon2 = document.getElementById('eyeSlashIcon2');
+      const eyeIcon3 = document.getElementById('eyeIcon3');
+      const eyeSlashIcon3 = document.getElementById('eyeSlashIcon3');
+
+
+
+   
+
+      // Open Login modal
+      function openLoginModal () {
+        modalTitle.textContent = "Login";
+        signUpIndicator.classList.add("hidden");
+        loginIndicator.classList.remove("hidden");
+        loginIndicator.classList.add("flex");
+        loginContent.classList.remove("hidden");
+        signUpStep1.classList.add("hidden");
+        signUpStep2.classList.add("hidden");
+        modalBackdrop.classList.remove("hidden");
+        modalBackdrop.classList.add("flex");
+        closeModalLogin.classList.remove("hidden");
+        closeModalSignUp.classList.add("hidden");
+      };
+
+      openLoginModalButton.addEventListener("click", openLoginModal);
+      openAlreadyLoginModalButton.addEventListener("click", openLoginModal);
+
+      // Open Sign Up modal with stepper
+      function openSignUpModal () {
+        modalTitle.textContent = "Create your Account";
+        step2.classList.add("bg-opacity-30");
+        loginIndicator.classList.add("hidden");
+        signUpIndicator.classList.remove("hidden");
+        signUpIndicator.classList.add("flex");
+        loginContent.classList.add("hidden");
+        signUpStep1.classList.remove("hidden");
+        signUpStep2.classList.add("hidden");
+        modalBackdrop.classList.remove("hidden");
+        modalBackdrop.classList.add("flex");
+        closeModalSignUp.classList.remove("hidden");
+        closeModalLogin.classList.add("hidden");
+      }
+      openSignUpModalButton.addEventListener("click", openSignUpModal);
+      openAlreadySignUpModalButton.addEventListener("click", openSignUpModal);
+
+      // Move to next step in Sign Up
+      nextStepButton.addEventListener("click", () => {
+        modalTitle.textContent = "Set up your Password";
+        signUpStep1.classList.add("hidden");
+        signUpStep2.classList.remove("hidden");
+        step2.classList.remove("bg-opacity-30");
+      });
+
+      // Go back to previous step in Sign Up
+      previousStepButton.addEventListener("click", () => {
+        modalTitle.textContent = "Create your Account";
+        signUpStep2.classList.add("hidden");
+        signUpStep1.classList.remove("hidden");
+        step2.classList.add("bg-opacity-30");
+      });
+
+      // Close modals
+      closeModalLogin.addEventListener("click", () => {
+        modalBackdrop.classList.add("hidden");
+      });
+
+      closeModalSignUp.addEventListener("click", () => {
+        modalBackdrop.classList.add("hidden");
+      });
+
+      // Close modal when clicking outside content
+      window.addEventListener("click", (e) => {
+        if (e.target === modalBackdrop) {
+          modalBackdrop.classList.add("hidden");
+        }
+      });
+
+      function togglePasswordVisibility(toggleButton, passwordInput, eyeIcon) {
+        toggleButton.addEventListener('click', function () {
+          // Toggle the type attribute
+          if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/eye-slash.png';
+          } else {
+            passwordInput.type = 'password';
+            eyeIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/eye.png';
+          }
+        });
+      }
+
+      // Toggle the type attribute
+      toggleButton1.addEventListener('click', 
+       togglePasswordVisibility(toggleButton1, password, eyeIcon1)
+      );
+      toggleButton2.addEventListener('click', 
+        togglePasswordVisibility(toggleButton2, register_password, eyeIcon2)
+      );
+      toggleButton3.addEventListener('click',
+        togglePasswordVisibility(toggleButton3, passwordInput3, eyeIcon3)
+      );
+
+      register_password.addEventListener('keyup', function () {
+        const password = this.value;
+
+        // Criteria icons
+        const uppercaseIcon = document.getElementById('uppercaseIcon');
+        const specialCharIcon = document.getElementById('specialCharIcon');
+        const lengthIcon = document.getElementById('lengthIcon');
+
+        // Regular expressions for validation
+        const uppercaseRegex = /[A-Z]/;
+        const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+        // Check if password contains at least one uppercase letter
+        if (uppercaseRegex.test(password)) {
+          uppercaseIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/tick-circle-green.png';  // Change to green icon
+        } else {
+          uppercaseIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/tick-circle.png';  // Revert to initial icon
+        }
+
+        // Check if password contains at least one special character
+        if (specialCharRegex.test(password)) {
+          specialCharIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/tick-circle-green.png';  // Change to green icon
+        } else {
+          specialCharIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/tick-circle.png';  // Revert to initial icon
+        }
+
+        // Check if password length is at least 8 characters
+        if (password.length >= 8) {
+          lengthIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/tick-circle-green.png';  // Change to green icon
+        } else {
+          lengthIcon.src = '<?php echo $wo['config']['theme_url'];?>/img/tick-circle.png';  // Revert to initial icon
+        }
+      });
+
+
+
+
+
+
+
+var working = false;
+var $this = $('#login');
+var $state = $this.find('.login_errors');
+
+
+<?php if($wo['config']['googleLogin'] != 0): ?>
+function handleCredentialResponse(response) {
+   var id_token = response.credential;
+   $.post(Wo_Ajax_Requests_File() + '?f=google_login', {id_token: id_token}, function(data, textStatus, xhr) {
+      if (data.status == 200) {
+         $state.addClass('success');
+           $state.html('<?php echo $wo['lang']['welcome_back'] ?>');
+         $this.find('.loading').addClass('hidden');
+           setTimeout(function () {
+            window.location.href = data.location;
+           }, 1000);
+      }
+      else{
+         $this.find('button').attr("disabled", false);
+         $this.find('.loading').addClass('hidden');
+           $state.html(data.message);
+      }
+   });
+}
+window.onload = function () {
+  google.accounts.id.initialize({
+    client_id: "<?php echo $wo['config']['googleAppId']?>",
+    callback: handleCredentialResponse
+  });
+  google.accounts.id.renderButton(
+    document.getElementById("buttonDiv"),
+    { theme: "outline", size: "large" }  // customization attributes
+  );
+  google.accounts.id.prompt(); // also display the One Tap dialog
+}
+<?php endif; ?>
+
+
+$(function() {
+  $('#login').ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=login',
+    beforeSend: function() {
+      working = true;
+      $this.find('button').attr("disabled", true);
+      $this.find('.add_wow_loader').addClass('btn-loading');
+    },
+    success: function(data) {
+      if (data.status == 200 || data.status == 600) {
+         $state.removeClass('alert-danger');
+         $state.addClass('alert-success');
+
+         $state.html('<?php echo $wo['lang']['welcome_back'] ?>');
+         $this.find('.add_wow_loader').removeClass('btn-loading');
+         setTimeout(function () {
+          window.location.href = data.location;
+         }, 1000);
+      } else {
+      var errors = data.errors.join("<br>");
+      $this.find('button').attr("disabled", false);
+      $this.find('.add_wow_loader').removeClass('btn-loading');
+        $state.html(errors);
+      }
+      working = false;
+    },
+    error: function(xhr, status, error) {
+      console.error("AJAX Error:", error);  // Log AJAX errors to the console for debugging
+    }
+  });
+});
+
+// var working = false;
+// var $this = $('#login');
+// var $state = $this.find('.login_errors');
+
+// $(function() {
+//   var $loginForm = $('#login'); 
+//   var $state = $loginForm.find('.login_errors'); 
+
+//   $loginForm.ajaxForm({
+//     url: Wo_Ajax_Requests_File() + '?f=login', 
+//     beforeSend: function() {
+//       console.log("Login form submission triggered");  
+//       working = true;  
+//       $loginForm.find('button').attr("disabled", true); // Disable button during submission
+//       $loginForm.find('.add_wow_loader').addClass('btn-loading'); // Show loading animation
+//     },
+//     success: function(data) {
+//       if (data.status == 200 || data.status == 600) {
+//         $state.removeClass('alert-danger');
+//         $state.addClass('alert-success');
+//         $state.html('<?php echo $wo["lang"]["welcome_back"]; ?>');  // Display welcome message
+//         $loginForm.find('.add_wow_loader').removeClass('btn-loading'); // Remove loading animation
+//         setTimeout(function() {
+//           window.location.href = data.location;  // Redirect to a new location after login
+//         }, 1000);
+//       } else {
+//         var errors = data.errors.join("<br>");  // If login fails, display errors
+//         $loginForm.find('button').attr("disabled", false);  // Re-enable the button
+//         $loginForm.find('.add_wow_loader').removeClass('btn-loading');  // Remove loading animation
+//         $state.html(errors);  // Display the error messages
+//       }
+//       working = false;  // Reset the working flag
+//     },
+//     error: function(xhr, status, error) {
+//       console.error("AJAX Error:", error);  // Log AJAX errors to the console for debugging
+//     }
+//   });
+// });
+
+
+
+
+
+
+
+var register_working = false;
+var $register_this = $('#register');
+var $register_state = $register_this.find('.register_errors');
+
+$(function() {
+  $register_this.ajaxForm({
+    url: Wo_Ajax_Requests_File() + '?f=register',
+    beforeSend: function() {
+      console.log("Before send triggered");
+      <?php if ($wo['config']['password_complexity_system'] == 1) { ?>
+    	if ($('.helper-text .length').hasClass('valid') && $('.helper-text .lowercase').hasClass('valid') 
+      && $('.helper-text .uppercase').hasClass('valid') && $('.helper-text .special').hasClass('valid')) {
+         register_working = true;
+			$register_this.find('button').attr("disabled", true);
+			$register_this.find('.add_wow_loader').addClass('btn-loading');
+    	}
+    	else{
+    		$register_state.html("<?php echo($wo['lang']['complexity_requirements']) ?>");
+    		return false;
+    	}
+        <?php } else{ ?>
+         register_working = true;
+			$register_this.find('button').attr("disabled", true);
+			$register_this.find('.add_wow_loader').addClass('btn-loading');
+        <?php } ?>
+    },
+    success: function(data) {
+      console.log("Response Data:", data); 
+      if (data.status == 200) {
+        $register_state.removeClass('alert-danger');
+        $register_state.addClass('alert-success');
+        $register_state.html('<?php echo $wo['lang']['welcome_'] ?>');
+        $register_this.find('.add_wow_loader').removeClass('btn-loading');
+        setTimeout(function() {
+          window.location.href = data.location;
+        }, 1000);
+      } else if (data.status == 300) {
+        window.location.href = data.location;
+      } else {
+        $register_this.find('button').attr("disabled", false);
+        $register_this.find('.add_wow_loader').removeClass('btn-loading');
+        $register_state.html(data.errors);
+      }
+      register_working = false;
+    },
+    error: function(xhr, status, error) {
+      console.error("AJAX Error:", error); 
+    }
+  });
+});
+
+
+    </script>
+  </body>
+</html>
