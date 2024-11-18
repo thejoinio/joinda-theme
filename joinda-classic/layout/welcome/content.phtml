@@ -120,7 +120,7 @@
             class="w-[100px] h-auto"
             alt="Joinda Logo"
           />
-          <p class="text-bodyText text-center text-xl">
+          <p class="text-bodyText text-center text-[16px]">
             Step into the Joinda universe
           </p>
         </div>
@@ -129,25 +129,24 @@
 
         <div id="loginContent" class=" text-[#858585] pt-7 pb-9">
             <form id="login" method="post"  class="flex flex-col">
-            <div class="alert alert-danger login_errors mb-3 text-xs text-red-300"></div>
+            <div class="alert alert-danger login_errors mb-3 text-[16px] text-red-500"></div>
 
-              <div class="flex flex-col gap-3">
-                <label for="username"> Username </label>
+              <div class="flex flex-col gap-1">
+                <label for="username" class="text-[16px] text-[#FCFCFC]"> Username </label>
                 <input
                   id="username" 
                   name="username"  
                   autocomplete="off" 
-                  autofocus
                   placeholder="Enter your username"
                   type="text"
                   class="h-20 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
                 />
               </div>
-              <div class="flex flex-col gap-3 mt-10">
-                <label for="password"> Password </label>
+              <div class="flex flex-col gap-1 mt-10">
+                <label for="password" class="text-[16px] text-[#FCFCFC]"> Password </label>
                 <div class="relative">
                   <input
-                    id="password"
+                    id="passwordInput1"
                     placeholder="Enter your password"
                     type="password"
                     class="h-20 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
@@ -162,12 +161,13 @@
                   </button>
                 </div>
               </div>
-                  <a href="<?php echo Wo_SeoLink('index.php?link1=forgot-password');?>"  class="mt-[30px] flex w-fit ml-auto text-[15px] main"><?php echo $wo['lang']['forget_password']?></a>
+                  <a href="<?php echo Wo_SeoLink('index.php?link1=forgot-password');?>"  class="mt-[30px] flex w-fit ml-auto text-[15px] text-[#8AE5CF]"><?php echo $wo['lang']['forget_password']?></a>
               <div class="flex mt-2.5">
                 <input type="checkbox" class="bg-transparent mr-2" name="remember" id="remember">
                 <label for="remember" style="margin-left:2px;">Remember this device</label>
               </div>
-              <button type="submit" class="btn btn-main btn-mat font-normal add_wow_loader rounded-full w-full h-20 w-[calc(100%_-_68px)] mx-auto border  border-[#333] bg-secondaryGrey text-center text-white text-[22px] mt-16 md:mt-12  hover:opacity-80 active:opacity-100 transition duration-200">Log In</button>
+              
+              <button type="submit" class="btn btn-main btn-mat font-normal add_wow_loader rounded-full w-full h-[6rem] bg-secondaryGrey w-[calc(100%_-_68px)] mx-auto border  border-[#333]  text-center text-white text-[22px] mt-16 md:mt-12  hover:opacity-80 active:opacity-100 transition duration-200">Log In</button>
               <div class="flex gap-3 mt-[25px] text-[15px] justify-center relative z-10">
                     <p class="text-[#FCFCFC]">Don&apos;t have an account? </p>
                     <button type="button" id="openAlreadySignUpModal" class="text-[#8AE5CF] font-semibold">Create Account</button>
@@ -196,10 +196,9 @@
           </button>
         </div>
       </div>
-      <div
-      id="logo-container"
-        class="hidden-mobile md:flex justify-center items-center w-1/2 bg-[url('<?php echo $wo['config']['theme_url'];?>/img/background.png')] bg-center"
-      >
+
+      <div class="bg-[url('<?php echo $wo['config']['theme_url'];?>/img/background.png')] w-1/2 hidden-mobile md:flex justify-center items-center">
+      <div id="logo-container" class=" bg-center md:flex justify-center items-center h-[90vh]">
         <img
           src="<?php echo $wo['config']['theme_url'];?>/img/joinda-logo.png"
           class="w-[240px] h-auto aspect-square"
@@ -207,28 +206,19 @@
         />
       </div>
 
-
-
-
-
-
-
-
-      <div id="screen-container" class="hidden hidden-mobile justify-center items-center flex  md:w-1/2 min-h-[calc(100vh_-_60px)]">
+      <div id="screen-container" class="hidden w-full min-h-[calc(100vh_-_60px)] flex items-center justify-center">
           <img
             src="<?php echo $wo['config']['theme_url'];?>/img/joinda-screen.png"
-            class="w-auto max-w-[381px] h-auto max-h-[560px] aspect-auto"
+            class="w-auto max-w-[381px] xl:max-w-[400px] 2xl:max-w-[420px] h-auto max-h-[560px] xl:max-h-[620px] aspect-auto"
             alt="Joinda Logo"
           />
         </div>
         
-        <div id="carousel-container" class="hidden hidden-mobile justify-center items-center md:flex relative md:w-1/2 overflow-hidden 
-         bg-[url('<?php echo $wo['config']['theme_url'];?>/img/background.png')]
-        ">
-          <div class="carousel-wrapper flex gap-8 transition-transform duration-500 ease-in-out max-h-[600px]">
+        <div id="carousel-container" class="hidden hidden-mobile justify-center items-center md:flex relative  overflow-hidden ">
+          <div class="carousel-wrapper flex gap-8 transition-transform duration-500 ease-in-out max-h-[600px] xl:max-h-[680px] scale-125">
             <!-- Slide 1 -->
-            <div class="carousel-slide w-[352px]">
-              <div class="flex flex-col bg-[#7F5CE2] bg-slide-primary max-w-[352px] w-[352px] h-full min-h-[522px] rounded-3xl bg-cover">
+            <div class="carousel-slide w-[352px] xl:w-[400px] 2xl:w-[420px]">
+              <div class="flex flex-col bg-[#7F5CE2] bg-slide-primary w-[352px] xl:w-[400px] 2xl:w-[420px] h-full min-h-[522px] rounded-3xl bg-cover">
                 <p class="text-2xl text-white p-7">
                   Use <span class="font-bold">JOIN</span> as a secure and transparent
                   <span class="font-bold text-[#89DAD0]">means of exchange</span>
@@ -246,7 +236,7 @@
         
             <!-- Slide 2 -->
             <div class="carousel-slide">
-              <div class="bg-[#030E14] max-w-[352px] w-[352px] h-full min-h-[522px] rounded-3xl px-7 pt-0">
+              <div class="bg-[#030E14] w-[352px] xl:w-[400px] 2xl:w-[420px] h-full min-h-[522px] rounded-3xl px-7 pt-0">
                 <p class="text-2xl text-white py-7">
                   Introducing our
                   <span class="font-bold text-[#89DAD0]">global</span>
@@ -264,7 +254,7 @@
   
             <!-- Slide 3 -->
             <div class="carousel-slide">
-              <div class="bg-[#030E14] text-white max-w-[352px] w-[352px] h-full min-h-[522px] rounded-3xl p-7 pt-0">
+              <div class="bg-[#030E14] text-white w-[352px] xl:w-[400px] 2xl:w-[420px] h-full min-h-[522px] rounded-3xl p-7 pt-0">
                 <div class="flex items-start">
                   <img draggable={false} src="<?php echo $wo['config']['theme_url'];?>/img/carousel/pay.webp" width={822} height={1224}
                     alt="Join payment successful screen shot" class="flex mx-auto w-auto h-auto" />
@@ -280,7 +270,7 @@
   
             <!-- Slide 4 -->
             <div class="carousel-slide">
-              <div class="bg-[#030E14] max-w-[352px] w-[352px] h-full min-h-[522px] rounded-3xl p-7 pt-0">
+              <div class="bg-[#030E14] w-[352px] xl:w-[400px] 2xl:w-[420px] h-full min-h-[522px] rounded-3xl p-7 pt-0">
                 <div class="flex items-start">
                   <img draggable={false} src="<?php echo $wo['config']['theme_url'];?>/img/carousel/rewards.webp" width={810} height={1237}
                     alt="Join rewards screen shot" class="flex mx-auto h-full w-auto object-contain" />
@@ -323,7 +313,7 @@
           />
       </div>
 
-
+  </div>
 
 
 
@@ -332,18 +322,18 @@
 
     </main>
     <footer class="min-h-[60px] bg-footerBg flex justify-center items-center">
-      <div class="w-full max-w-[942px] mx-auto px-4 flex">
+      <div class="w-full max-w-[942px]  md:w-full mx-auto px-4 flex">
         <ul
-          class="flex flex-wrap gap-x-10 text-bodyText items-center justify-center text-center py-4"
+          class="flex flex-wrap gap-x-10 text-bodyText items-center justify-center md:w-full text-center py-4"
         >
-          <li><a href="#" class="text-sm">Features</a></li>
-          <li><a href="#" class="text-sm">Help Center</a></li>
-          <li><a href="#" class="text-sm">Terms of Service</a></li>
-          <li><a href="#" class="text-sm">Privacy Policy</a></li>
-          <li><a href="#" class="text-sm">Cookie Policy</a></li>
-          <li><a href="#" class="text-sm">Accessibility</a></li>
-          <li><a href="#" class="text-sm">Careers</a></li>
-          <li><a href="#" class="text-sm">Settings</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Features</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Help Center</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Terms of Service</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Privacy Policy</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Cookie Policy</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Accessibility</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Careers</a></li>
+          <li><a href="#" class="text-sm md:text-[14px]">Settings</a></li>
         </ul>
       </div>
     </footer>
@@ -391,10 +381,10 @@
                 class="h-full w-[101px] rounded-sm bg-[#8AE5CF]"
               ></div>
             </div>
-            <div
+            <!-- <div
               id="loginIndicator"
               class="h-[5px] w-[101px] rounded-sm bg-[#8AE5CF]"
-            ></div>
+            ></div> -->
           </div>
   
           <!-- Login content -->
@@ -483,7 +473,7 @@
                   <input
                     placeholder="Enter your password"
                     class="h-16 w-full max-w-[600px] border border-secondaryGrey focus:border-secondary outline-none text-secondaryGrey placeholder:text-secondaryGrey/80 text-xl bg-transparent rounded-[10px] px-4"
-                    id="register_password" name="password" type="password" 
+                    id="passwordInput2" name="password" type="password" 
                   />
                   <button
                     id="togglePassword2"
@@ -556,21 +546,19 @@
       const modalBackdrop = document.getElementById("modalBackdrop");
       const modalTitle = document.getElementById("modalTitle");
       const signUpIndicator = document.getElementById("signUpIndicator");
-      const loginIndicator = document.getElementById("loginIndicator");
+      // const loginIndicator = document.getElementById("loginIndicator");
       const loginContent = document.getElementById("loginContent");
       const signUpStep1 = document.getElementById("signUpStep1");
       const signUpStep2 = document.getElementById("signUpStep2");
       const closeModalLogin = document.getElementById("closeModalLogin");
       const closeModalSignUp = document.getElementById("closeModalSignUp");
-      const closeModalSignUp2 = document.getElementById("closeModalSignUp2");
-
       const nextStepButton = document.getElementById("nextStep");
       const previousStepButton = document.getElementById("previousStepButton");
-      const password = document.getElementById('password');
+      const passwordInput1 = document.getElementById('passwordInput1');
       const toggleButton1 = document.getElementById('togglePassword1');
-      const register_password = document.getElementById('register_password');
+      const passwordInput2 = document.getElementById('passwordInput2');
       const toggleButton2 = document.getElementById('togglePassword2');
-      const passwordInput3 = document.getElementById('confirm_password');
+      const passwordInput3 = document.getElementById('confirmPasswordInput');
       const toggleButton3 = document.getElementById('toggleConfirmPassword');
       const eyeIcon1 = document.getElementById('eyeIcon1');
       const eyeSlashIcon1 = document.getElementById('eyeSlashIcon1');
@@ -579,16 +567,15 @@
       const eyeIcon3 = document.getElementById('eyeIcon3');
       const eyeSlashIcon3 = document.getElementById('eyeSlashIcon3');
 
-
-
+      const closeModalSignUp2 = document.getElementById("closeModalSignUp2");
    
 
       // Open Login modal
       function openLoginModal () {
         modalTitle.textContent = "Login";
         signUpIndicator.classList.add("hidden");
-        loginIndicator.classList.remove("hidden");
-        loginIndicator.classList.add("flex");
+        // loginIndicator.classList.remove("hidden");
+        // loginIndicator.classList.add("flex");
         loginContent.classList.remove("hidden");
         signUpStep1.classList.add("hidden");
         signUpStep2.classList.add("hidden");
@@ -668,16 +655,16 @@
 
       // Toggle the type attribute
       toggleButton1.addEventListener('click', 
-       togglePasswordVisibility(toggleButton1, password, eyeIcon1)
+       togglePasswordVisibility(toggleButton1, passwordInput1, eyeIcon1)
       );
       toggleButton2.addEventListener('click', 
-        togglePasswordVisibility(toggleButton2, register_password, eyeIcon2)
+        togglePasswordVisibility(toggleButton2, passwordInput2, eyeIcon2)
       );
       toggleButton3.addEventListener('click',
         togglePasswordVisibility(toggleButton3, passwordInput3, eyeIcon3)
       );
 
-      register_password.addEventListener('keyup', function () {
+      passwordInput2.addEventListener('keyup', function () {
         const password = this.value;
 
         // Criteria icons
@@ -717,34 +704,40 @@
    document.addEventListener('DOMContentLoaded', () => {
       const logoContainer = document.getElementById('logo-container');
       const screenContainer = document.getElementById('screen-container');
-      const carouselContainer = document.getElementById('carousel-container');
-      const carouselWrapper = document.querySelector('.carousel-wrapper');
-      const slides = Array.from(document.querySelectorAll('.carousel-slide'));
-      let currentIndex = 0;
-      let intervalId;
-      let slideWidth;
+      // const carouselContainer = document.getElementById('carousel-container');
+      // const carouselWrapper = document.querySelector('.carousel-wrapper');
+      // const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+      // let currentIndex = 0;
+      // let intervalId;
+      // let slideWidth;
 
-      // Clone all slides for looping
-      slides.forEach(slide => {
-        const clone = slide.cloneNode(true);
-        clone.classList.add('clone');
-        carouselWrapper.appendChild(clone);
-      });
+      // // Clone all slides for looping
+      // slides.forEach(slide => {
+      //   const clone = slide.cloneNode(true);
+      //   clone.classList.add('clone');
+      //   carouselWrapper.appendChild(clone);
+      // });
 
-      function calculateSlideWidth() {
-        slideWidth = slides[0].clientWidth + 32; // Width plus margin
-        carouselWrapper.style.transition = 'none';
-        centerSlide();
-      }
+      // function calculateSlideWidth() {
+      //   slideWidth = slides[0].clientWidth + 32; // Width plus margin
+      //   carouselWrapper.style.transition = 'none';
+      //   centerSlide();
+      // }
 
-      function centerSlide() {
-        const offset = (carouselContainer.clientWidth - slideWidth) / 2;
-        carouselWrapper.style.transform = `translateX(${-slideWidth * currentIndex + offset}px)`;
-      }
+      // function centerSlide() {
+      //   const offset = (carouselContainer.clientWidth - slideWidth) / 2;
+      //   carouselWrapper.style.transform = `translateX(${-slideWidth * currentIndex + offset}px)`;
+      // }
 
       function showLogo() {
         logoContainer.classList.remove('hidden');
         logoContainer.classList.add('flex');
+
+        // After 3 seconds, hide logo and show screen container
+        setTimeout(() => {
+            hideLogo();
+            showScreenContainer();
+        }, 3000);
       }
 
       function hideLogo() {
@@ -756,75 +749,87 @@
         screenContainer.classList.remove('hidden');
         screenContainer.classList.add('flex', 'scale-in');
 
-        // Fade out and move up after 3 seconds
-        setTimeout(() => {
-          screenContainer.classList.add('fade-out-up');
-
-          setTimeout(() => {
-            screenContainer.classList.remove('flex');
-            screenContainer.classList.add('hidden');
-            showCarousel();
-          }, 800); 
-        }, 3000);
-      }
-
-      function showCarousel() {
-        carouselContainer.classList.remove('hidden');
-        carouselContainer.classList.add('flex');
-        calculateSlideWidth();
-        startAutoplay();
-      }
-
-      function moveToNextSlide() {
-        currentIndex++;
-        carouselWrapper.style.transition = 'transform 0.5s ease-in-out';
-        centerSlide();
-
-        // When reaching the end of the original slides plus clones
-        if (currentIndex === slides.length) {
-          setTimeout(() => {
-            carouselWrapper.style.transition = 'none';
-            currentIndex = 0; // Jump back to the original first slide without transition
-            centerSlide();
-          }, 500); // Wait for the transition to finish before resetting
-        }
-      }
-
-      function moveToPrevSlide() {
-        currentIndex--;
-        carouselWrapper.style.transition = 'transform 0.5s ease-in-out';
-        centerSlide();
-
-        // When reaching the beginning of the cloned slides
-        if (currentIndex === -1) {
-          setTimeout(() => {
-            carouselWrapper.style.transition = 'none';
-            currentIndex = slides.length - 1; // Jump to the last slide without transition
-            centerSlide();
-          }, 500);
-        }
-      }
-
-      function startAutoplay() {
-        intervalId = setInterval(moveToNextSlide, 3000); // 3-second interval
-      }
-
-      function stopAutoplay() {
-        clearInterval(intervalId);
-      }
-
-      // Initially show the logo for 3 seconds, then show the screen container after 1 second delay
+      // After 3 seconds, start the transition out
       setTimeout(() => {
-        hideLogo();
-        showScreenContainer();
-      }, 3000);
+            // Add scale out effect
+            screenContainer.classList.add('scale-out');
+            
+            setTimeout(() => {
+                // Add fade out up effect
+                screenContainer.classList.add('fade-out-up');
+                
+                setTimeout(() => {
+                    // Hide screen container and reset classes
+                    screenContainer.classList.remove('flex', 'scale-in', 'scale-out', 'fade-out-up');
+                    screenContainer.classList.add('hidden');
+                    
+                    // Show logo again to restart the cycle
+                    showLogo();
+                }, 400); // Wait for fade out to complete
+            }, 500); // Wait for scaling to complete
+        }, 3000); // Initial display duration
+      }
+
+      // Start the cycle by showing the logo first
+      showLogo();
+
+      // function showCarousel() {
+      //   carouselContainer.classList.remove('hidden');
+      //   carouselContainer.classList.add('flex');
+      //   calculateSlideWidth();
+      //   startAutoplay();
+      // }
+
+      // function moveToNextSlide() {
+      //   currentIndex++;
+      //   carouselWrapper.style.transition = 'transform 0.5s ease-in-out';
+      //   centerSlide();
+
+      //   // When reaching the end of the original slides plus clones
+      //   if (currentIndex === slides.length) {
+      //     setTimeout(() => {
+      //       carouselWrapper.style.transition = 'none';
+      //       currentIndex = 0; // Jump back to the original first slide without transition
+      //       centerSlide();
+      //     }, 500); // Wait for the transition to finish before resetting
+      //   }
+      // }
+
+      // function moveToPrevSlide() {
+      //   currentIndex--;
+      //   carouselWrapper.style.transition = 'transform 0.5s ease-in-out';
+      //   centerSlide();
+
+      //   // When reaching the beginning of the cloned slides
+      //   if (currentIndex === -1) {
+      //     setTimeout(() => {
+      //       carouselWrapper.style.transition = 'none';
+      //       currentIndex = slides.length - 1; // Jump to the last slide without transition
+      //       centerSlide();
+      //     }, 500);
+      //   }
+      // }
+
+      // function startAutoplay() {
+      //   intervalId = setInterval(moveToNextSlide, 3000); // 3-second interval
+      // }
+
+      // function stopAutoplay() {
+      //   clearInterval(intervalId);
+      // }
+
+      // // Initially show the logo for 3 seconds, then show the screen container after 1 second delay
+      // setTimeout(() => {
+      //   hideLogo();
+      //   showScreenContainer();
+      // }, 3000);
 
       // Optional: pause autoplay on hover
-      carouselWrapper.addEventListener('mouseenter', stopAutoplay);
-      carouselWrapper.addEventListener('mouseleave', startAutoplay);
+      // carouselWrapper.addEventListener('mouseenter', stopAutoplay);
+      // carouselWrapper.addEventListener('mouseleave', startAutoplay);
 
-      // Recalculate slide width on window resize
-      window.addEventListener('resize', calculateSlideWidth);
+      // // Recalculate slide width on window resize
+      // window.addEventListener('resize', calculateSlideWidth);
     });
 
   
